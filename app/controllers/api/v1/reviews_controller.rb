@@ -1,8 +1,7 @@
-class ReviewsController < ApplicationController
+class Api::V1::ReviewsController < ApplicationController
   def create
     product = Product.find(params[:id])
-    @review = Review.new(review_params)
-    @review.product = product
+    @review = product.reviews.new(review_params)
     @review.save
   end
 
