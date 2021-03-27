@@ -1,5 +1,6 @@
-import React, { Component, Fragment} from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { AppProvider } from './AppContext';
 import Default from './Default';
 import Navbar from './Navbar';
 import Product from './Product';
@@ -8,14 +9,14 @@ import Products from './Products';
 export default class App extends Component {
   render() {
     return (
-      <Fragment>
+      <AppProvider>
         <Navbar/>
         <Switch>
           <Route exact path="/" component={Products} />
           <Route path="/product/:id" component={Product} />
           <Route component={Default} />
         </Switch>
-      </Fragment>
+      </AppProvider>
     );
   }
 }
