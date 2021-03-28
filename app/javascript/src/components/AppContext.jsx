@@ -24,8 +24,6 @@ class AppProvider extends Component {
   }
 
   render() {
-    console.log(this.state.products);
-
     return (
       <AppContext.Provider
         value={{
