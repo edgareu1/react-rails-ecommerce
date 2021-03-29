@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { AppConsumer } from './AppContext';
+import PageHeader from './PageHeader';
 
 export default class Products extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Products</h1>
+        <PageHeader>Products</PageHeader>
 
         <AppConsumer>
           {value => {
