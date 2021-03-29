@@ -53,4 +53,4 @@ class AppProvider extends Component {
 
 const AppConsumer = AppContext.Consumer;
 
-export { AppProvider, AppConsumer };
+export { AppContext, AppProvider, AppConsumer };
