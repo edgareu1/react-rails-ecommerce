@@ -13,7 +13,7 @@ export default class App extends Component {
         <Navbar/>
         <Switch>
           <Route exact path="/" component={Products} />
-          <Route path="/product/:id" component={Product} />
+          <Route path="/products/:id" component={Product} />
           <Route component={Default} />
         </Switch>
       </AppProvider>
