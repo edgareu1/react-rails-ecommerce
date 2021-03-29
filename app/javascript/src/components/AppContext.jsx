@@ -23,11 +23,26 @@ class AppProvider extends Component {
     });
   }
 
+  getProduct = async (id) => {
+    if (isNaN(id)) return {};
+
+    const url = baseUrl + '/api/v1/products/' + id;
+    const product = await fetch(url)
+      .then(response => response.json())
+      .catch(error => {
+        console.log(error.message);
+        return {};
+      });
+
+    return product;
+  }
+
   render() {
     return (
       <AppContext.Provider
         value={{
-          ...this.state
+          ...this.state,
+          getProduct: this.getProduct
         }}
       >
         {this.props.children}
@@ -38,4 +53,4 @@ class AppProvider extends Component {
 
 const AppConsumer = AppContext.Consumer;
 
-export { AppProvider, AppConsumer };
+export { AppContext, AppProvider, AppConsumer };
