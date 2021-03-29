@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
 
 export default class Product extends Component {
@@ -26,8 +26,38 @@ export default class Product extends Component {
   }
 
   render() {
+    const { name, image_url, price } = this.state.product;
+    const reviews = this.state.reviews;
+
     return (
-      <h1>Product</h1>
+      <Fragment>
+        <h1>Product</h1>
+
+        {name ? (
+            <div>
+              <h2>{name}</h2>
+              <img
+                src={image_url}
+                alt={name}
+              />
+              <p>{price}</p>
+
+              <div>
+                {reviews.map(review => {
+                  return (
+                    <div>
+                      <h6>{review.author} ({review.score})</h6>
+                      <p>{review.content}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <p>Product does not exist!</p>
+          )
+        }
+      </Fragment>
     );
   }
 }
