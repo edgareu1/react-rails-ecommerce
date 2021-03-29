@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
+import PageHeader from './PageHeader';
 
 export default class Product extends Component {
   constructor(props) {
@@ -31,11 +32,9 @@ export default class Product extends Component {
 
     return (
       <Fragment>
-        <h1>Product</h1>
-
         {name ? (
             <div>
-              <h2>{name}</h2>
+              <PageHeader>{name}</PageHeader>
               <img
                 src={image_url}
                 alt={name}
