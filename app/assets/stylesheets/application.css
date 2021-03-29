@@ -12,4 +12,19 @@
  *
  *= require_tree .
  *= require_self
- */
+*/
+
+* {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  box-sizing: content-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --main-blue: rgb(55, 45, 155);
+  --minor-blue: rgb(20, 50, 95);
+  --main-dark: rgb(15, 20, 25);
+  --main-light: rgb(180, 210, 240);
+}
