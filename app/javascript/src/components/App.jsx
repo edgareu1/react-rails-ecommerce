@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { AppProvider } from './AppContext';
-import Default from './Default';
 import Navbar from './Navbar';
-import Product from './Product';
-import Products from './Products';
+import PageDefault from './PageDefault';
+import PageProductsIndex from './PageProductsIndex';
+import PageProductsShow from './PageProductsShow';
 
 export default class App extends Component {
   render() {
@@ -12,9 +12,9 @@ export default class App extends Component {
       <AppProvider>
         <Navbar/>
         <Switch>
-          <Route exact path="/" component={Products} />
-          <Route path="/products/:id" component={Product} />
-          <Route component={Default} />
+          <Route exact path="/" component={PageProductsIndex} />
+          <Route path="/products/:id" component={PageProductsShow} />
+          <Route component={PageDefault} />
         </Switch>
       </AppProvider>
     );

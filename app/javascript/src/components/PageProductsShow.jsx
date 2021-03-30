@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
 import PageHeader from './PageHeader';
 
-export default class Product extends Component {
+export default class PageProductsShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,4 +61,4 @@ export default class Product extends Component {
   }
 }
 
-Product.contextType = AppContext;
+PageProductsShow.contextType = AppContext;
