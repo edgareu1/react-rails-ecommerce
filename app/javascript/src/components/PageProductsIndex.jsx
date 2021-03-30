@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { AppConsumer } from './AppContext';
 import PageHeader from './PageHeader';
 
-export default class Products extends Component {
+export default class PageProductsIndex extends Component {
   render() {
     return (
       <Fragment>
