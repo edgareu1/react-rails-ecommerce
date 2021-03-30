@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
-import PageHeader from './PageHeader';
+import ProductDetails from './ProductDetails';
+import ProductNonExistent from './ProductNonExistent';
+import ReviewsList from './ReviewsList';
 
 export default class PageProductsShow extends Component {
   constructor(props) {
@@ -27,33 +29,15 @@ export default class PageProductsShow extends Component {
   }
 
   render() {
-    const { name, image_url, price } = this.state.product;
-    const reviews = this.state.reviews;
-
     return (
       <Fragment>
-        {name ? (
-            <div>
-              <PageHeader>{name}</PageHeader>
-              <img
-                src={image_url}
-                alt={name}
-              />
-              <p>{price}</p>
-
-              <div>
-                {reviews.map(review => {
-                  return (
-                    <div>
-                      <h6>{review.author} ({review.score})</h6>
-                      <p>{review.content}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+        {Object.keys(this.state.product).length ? (
+            <Fragment>
+              <ProductDetails product={this.state.product} />
+              <ReviewsList reviews={this.state.reviews} />
+            </Fragment>
           ) : (
-            <p>Product does not exist!</p>
+            <ProductNonExistent />
           )
         }
       </Fragment>
