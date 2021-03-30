@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
 import ProductDetails from './ProductDetails';
 import ProductNonExistent from './ProductNonExistent';
+import ReviewForm from './ReviewForm';
 import ReviewsList from './ReviewsList';
 
 export default class PageProductsShow extends Component {
@@ -34,6 +35,7 @@ export default class PageProductsShow extends Component {
         {Object.keys(this.state.product).length ? (
             <Fragment>
               <ProductDetails product={this.state.product} />
+              <ReviewForm />
               <ReviewsList reviews={this.state.reviews} />
             </Fragment>
           ) : (
