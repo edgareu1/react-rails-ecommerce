@@ -1,0 +1,40 @@
+.stars {
+  float: left;
+  overflow: hidden;
+  width: 180px;
+  height: 40px;
+  margin: 0;
+}
+
+.stars input[type="radio"] {
+  display: none;
+}
+
+.stars label {
+  box-sizing: border-box;
+  height: 40px;
+  width: 20%;
+  float: right;
+  cursor: pointer;
+}
+
+.stars label:after {
+  display: block;
+  float: right;
+  color: rgb(80, 80, 80);
+  font-size: 28px;
+  font-family: FontAwesome;
+  content: "\f005";
+  height: 40px;
+  width: 30px;
+  transition: all 0.15s;
+}
+
+.stars label:hover:after,
+.stars label:hover ~ label:after {
+  color: rgba(255, 175, 0, 1) !important;
+}
+
+.stars input[type="radio"]:checked ~ label:after {
+  color: rgba(255, 175, 0, 1);
+}

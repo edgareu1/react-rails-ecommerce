@@ -1,4 +1,4 @@
-json.extract! @product, :id, :name, :price, :image_url
+json.extract! @product, :id, :name, :price, :average_rating, :image_url
 
 json.reviews do
   json.array! @reviews do |review|

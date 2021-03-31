@@ -14,6 +14,8 @@
  *= require_self
 */
 
+@import "./components/index.css";
+
 * {
   color: var(--main-dark);
   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,

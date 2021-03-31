@@ -11,9 +11,7 @@ export default class ReviewForm extends Component {
             name="rating"
             id={`rating-${score}`}
           />
-          <label htmlFor={`rating-${score}`}>
-            {score}
-          </label>
+          <label htmlFor={`rating-${score}`} />
         </Fragment>
       )
     });
@@ -25,7 +23,9 @@ export default class ReviewForm extends Component {
           name="author"
           placeholder="Review Author"
         />
-        {ratingOptions}
+        <div className="stars">
+          {ratingOptions}
+        </div>
         <input
           type="text"
           name="content"

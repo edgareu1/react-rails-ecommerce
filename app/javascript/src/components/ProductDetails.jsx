@@ -1,19 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
+import displayPrice from '../utils/displayPrice';
 import PageHeader from './PageHeader';
+import ReviewForm from './ReviewForm';
+
+const CardContainer = styled.div`
+  display: flex;
+  width: 100%;
+`
+
+const CardImg = styled.img`
+  height: 450px;
+  width: 50%;
+`
+
+const CardContent = styled.div`
+  height: 450px;
+  width: 50%;
+`
 
 export default class ProductDetails extends Component {
   render() {
-    const { name, image_url, price } = this.props.product;
+    const { name, image_url, price, average_rating } = this.props.product;
 
     return (
-      <div>
+      <Fragment>
         <PageHeader>{name}</PageHeader>
-        <img
-          src={image_url}
-          alt={name}
-        />
-        <p>{price}</p>
-      </div>
+
+        <CardContainer>
+          <CardImg
+            src={image_url}
+            alt={name}
+          />
+          <CardContent>
+            <h3>Rating: {average_rating}</h3>
+            <h3>Price: {displayPrice(price)}</h3>
+            <ReviewForm />
+          </CardContent>
+        </CardContainer>
+      </Fragment>
     );
   }
 }
