@@ -1,9 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
+import styled from 'styled-components';
 import ProductDetails from './ProductDetails';
 import ProductNonExistent from './ProductNonExistent';
-import ReviewForm from './ReviewForm';
 import ReviewsList from './ReviewsList';
+
+const ContentContainer = styled.div`
+  min-width: 900px;
+  max-width: 900px;
+  margin: 0 auto;
+`
 
 export default class PageProductsShow extends Component {
   constructor(props) {
@@ -33,11 +39,10 @@ export default class PageProductsShow extends Component {
     return (
       <Fragment>
         {Object.keys(this.state.product).length ? (
-            <Fragment>
+            <ContentContainer>
               <ProductDetails product={this.state.product} />
-              <ReviewForm />
               <ReviewsList reviews={this.state.reviews} />
-            </Fragment>
+            </ContentContainer>
           ) : (
             <ProductNonExistent />
           )
