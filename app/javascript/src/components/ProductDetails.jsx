@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
+import displayPrice from '../utils/displayPrice';
 import PageHeader from './PageHeader';
 import ReviewForm from './ReviewForm';
 
@@ -33,7 +34,7 @@ export default class ProductDetails extends Component {
           />
           <CardContent>
             <h3>Rating: {average_rating}</h3>
-            <h3>Price: {(Number(price) / 100).toFixed(2)} €</h3>
+            <h3>Price: {displayPrice(price)}</h3>
             <ReviewForm />
           </CardContent>
         </CardContainer>

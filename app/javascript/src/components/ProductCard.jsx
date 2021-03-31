@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import displayPrice from '../utils/displayPrice';
 
 const cardDimensions = `
   height: 400px;
@@ -63,7 +64,7 @@ export default class ProductCard extends Component {
           </Link>
 
           <CardPrice>
-            {(Number(price) / 100).toFixed(2)} €
+            {displayPrice(price)}
           </CardPrice>
         </InnerCard>
       </OuterCard>
