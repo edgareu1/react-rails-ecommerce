@@ -50,13 +50,17 @@ class AppProvider extends Component {
     return product;
   }
 
-  createProduct = data => {
+  createProduct = async (data) => {
     const url = '/api/v1/products/' + this.state.currentProductId + '/reviews';
 
-    axios.post(url, data)
+    const response = await axios.post(url, data)
+      .then(response => JSON.parse(response.request.response))
       .catch(error => {
-        console.log('Error', error);
+        console.error(error);
+        return { network_error: true };
       });
+
+    return response;
   }
 
   render() {
