@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 
+const axios = require('axios');
 const AppContext = React.createContext();
-const baseUrl = 'http://localhost:3000';
 
 class AppProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [] };
+    this.state = {
+      products: [],
+      currentProductId: null
+    };
   }
 
   componentDidMount() {
@@ -14,9 +17,13 @@ class AppProvider extends Component {
   }
 
   setProducts = async () => {
-    const url = baseUrl + '/api/v1/products';
-    const productsList = await fetch(url)
-      .then(response => response.json());
+    const url = '/api/v1/products';
+    const productsList = await axios.get(url)
+      .then(response => response.data)
+      .catch(error => {
+        console.log(error.message);
+        return [];
+      });
 
     this.setState(() => {
       return { products: productsList };
@@ -24,17 +31,36 @@ class AppProvider extends Component {
   }
 
   getProduct = async (id) => {
-    if (isNaN(id)) return {};
+    const defaultValue = {};
 
-    const url = baseUrl + '/api/v1/products/' + id;
-    const product = await fetch(url)
-      .then(response => response.json())
+    if (isNaN(id)) return defaultValue;
+
+    const url = '/api/v1/products/' + id;
+    const product = await axios.get(url)
+      .then(response => response.data)
       .catch(error => {
         console.log(error.message);
-        return {};
+        return defaultValue;
       });
 
+    this.setState(() => {
+      return { currentProductId: id };
+    });
+
     return product;
+  }
+
+  createProduct = async (data) => {
+    const url = '/api/v1/products/' + this.state.currentProductId + '/reviews';
+
+    const response = await axios.post(url, data)
+      .then(response => JSON.parse(response.request.response))
+      .catch(error => {
+        console.error(error);
+        return { network_error: true };
+      });
+
+    return response;
   }
 
   render() {
@@ -42,7 +68,8 @@ class AppProvider extends Component {
       <AppContext.Provider
         value={{
           ...this.state,
-          getProduct: this.getProduct
+          getProduct: this.getProduct,
+          createProduct: this.createProduct
         }}
       >
         {this.props.children}

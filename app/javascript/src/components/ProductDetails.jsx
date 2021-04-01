@@ -35,7 +35,7 @@ export default class ProductDetails extends Component {
           <CardContent>
             <h3>Rating: {average_rating}</h3>
             <h3>Price: {displayPrice(price)}</h3>
-            <ReviewForm />
+            <ReviewForm addReview={this.props.addReview} />
           </CardContent>
         </CardContainer>
       </Fragment>

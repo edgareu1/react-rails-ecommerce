@@ -14,16 +14,18 @@ const ContentContainer = styled.div`
 export default class PageProductsShow extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       product: {},
       reviews: []
     }
+
+    this.addReview = this.addReview.bind(this);
   }
 
   async componentDidMount() {
-    const value = this.context;
     const productId = Number(this.props.match.params.id);
-    const product = await value.getProduct(productId);
+    const product = await this.context.getProduct(productId);
     const reviews = product.reviews;
     delete product.reviews;
 
@@ -31,8 +33,16 @@ export default class PageProductsShow extends Component {
       return {
         product,
         reviews
-      };
-    })
+      }
+    });
+  }
+
+  addReview(newReview) {
+    this.setState(prevState => {
+      return {
+        reviews: [newReview, ...prevState.reviews.slice(0, 4)]
+      }
+    });
   }
 
   render() {
@@ -40,7 +50,7 @@ export default class PageProductsShow extends Component {
       <Fragment>
         {Object.keys(this.state.product).length ? (
             <ContentContainer>
-              <ProductDetails product={this.state.product} />
+              <ProductDetails product={this.state.product} addReview={this.addReview} />
               <ReviewsList reviews={this.state.reviews} />
             </ContentContainer>
           ) : (
