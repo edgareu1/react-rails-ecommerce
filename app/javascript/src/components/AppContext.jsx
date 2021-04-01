@@ -6,7 +6,10 @@ const AppContext = React.createContext();
 class AppProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [] };
+    this.state = {
+      products: [],
+      currentProductId: null
+    };
   }
 
   componentDidMount() {
@@ -40,7 +43,20 @@ class AppProvider extends Component {
         return defaultValue;
       });
 
+    this.setState(() => {
+      return { currentProductId: id };
+    });
+
     return product;
+  }
+
+  createProduct = data => {
+    const url = '/api/v1/products/' + this.state.currentProductId + '/reviews';
+
+    axios.post(url, data)
+      .catch(error => {
+        console.log('Error', error);
+      });
   }
 
   render() {
@@ -48,7 +64,8 @@ class AppProvider extends Component {
       <AppContext.Provider
         value={{
           ...this.state,
-          getProduct: this.getProduct
+          getProduct: this.getProduct,
+          createProduct: this.createProduct
         }}
       >
         {this.props.children}
