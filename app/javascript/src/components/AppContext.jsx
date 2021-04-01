@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
+const axios = require('axios');
 const AppContext = React.createContext();
-const baseUrl = 'http://localhost:3000';
 
 class AppProvider extends Component {
   constructor(props) {
@@ -14,9 +14,13 @@ class AppProvider extends Component {
   }
 
   setProducts = async () => {
-    const url = baseUrl + '/api/v1/products';
-    const productsList = await fetch(url)
-      .then(response => response.json());
+    const url = '/api/v1/products';
+    const productsList = await axios.get(url)
+      .then(response => response.data)
+      .catch(error => {
+        console.log(error.message);
+        return [];
+      });
 
     this.setState(() => {
       return { products: productsList };
@@ -24,14 +28,16 @@ class AppProvider extends Component {
   }
 
   getProduct = async (id) => {
-    if (isNaN(id)) return {};
+    const defaultValue = {};
 
-    const url = baseUrl + '/api/v1/products/' + id;
-    const product = await fetch(url)
-      .then(response => response.json())
+    if (isNaN(id)) return defaultValue;
+
+    const url = '/api/v1/products/' + id;
+    const product = await axios.get(url)
+      .then(response => response.data)
       .catch(error => {
         console.log(error.message);
-        return {};
+        return defaultValue;
       });
 
     return product;
