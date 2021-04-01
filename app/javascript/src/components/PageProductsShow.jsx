@@ -21,9 +21,8 @@ export default class PageProductsShow extends Component {
   }
 
   async componentDidMount() {
-    const value = this.context;
     const productId = Number(this.props.match.params.id);
-    const product = await value.getProduct(productId);
+    const product = await this.context.getProduct(productId);
     const reviews = product.reviews;
     delete product.reviews;
 
