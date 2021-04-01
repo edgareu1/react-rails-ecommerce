@@ -14,6 +14,7 @@ export default class ReviewForm extends Component {
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleAuthorChange(event) {
@@ -40,6 +41,18 @@ export default class ReviewForm extends Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const data = {
+      author: this.state.author,
+      content: this.state.content,
+      score: this.state.score
+    };
+
+    this.context.createProduct(data);
+  }
+
   render() {
     const ratingOptions = [5,4,3,2,1].map(score => {
       return (
@@ -58,7 +71,7 @@ export default class ReviewForm extends Component {
     });
 
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           name="author"
