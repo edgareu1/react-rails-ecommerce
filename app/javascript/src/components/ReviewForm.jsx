@@ -11,33 +11,16 @@ export default class ReviewForm extends Component {
       score: ''
     }
 
-    this.handleAuthorChange = this.handleAuthorChange.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.handleScoreChange = this.handleScoreChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleAuthorChange(event) {
-    const newAuthor = event.target.value;
+  handleInputChange(event) {
+    const newProperty = event.target.name;
+    const newValue = event.target.value;
 
     this.setState(() => {
-      return { author: newAuthor };
-    });
-  }
-
-  handleContentChange(event) {
-    const newContent = event.target.value;
-
-    this.setState(() => {
-      return { content: newContent };
-    });
-  }
-
-  handleScoreChange(event) {
-    const newScore = event.target.value;
-
-    this.setState(() => {
-      return { score: newScore };
+      return { [newProperty]: newValue };
     });
   }
 
@@ -54,18 +37,18 @@ export default class ReviewForm extends Component {
   }
 
   render() {
-    const ratingOptions = [5,4,3,2,1].map(score => {
+    const scoreOptions = [5,4,3,2,1].map(score => {
       return (
         <Fragment key={score}>
           <input
             type="radio"
             value={score}
-            name="rating"
-            id={`rating-${score}`}
-            onChange={this.handleScoreChange}
+            name="score"
+            id={`score-${score}`}
+            onChange={this.handleInputChange}
           />
 
-          <label htmlFor={`rating-${score}`} />
+          <label htmlFor={`score-${score}`} />
         </Fragment>
       )
     });
@@ -77,11 +60,11 @@ export default class ReviewForm extends Component {
           name="author"
           placeholder="Review Author"
           value={this.state.author}
-          onChange={this.handleAuthorChange}
+          onChange={this.handleInputChange}
         />
 
         <div className="stars">
-          {ratingOptions}
+          {scoreOptions}
         </div>
 
         <input
@@ -89,7 +72,7 @@ export default class ReviewForm extends Component {
           name="content"
           placeholder="Review Content"
           value={this.state.content}
-          onChange={this.handleContentChange}
+          onChange={this.handleInputChange}
         />
 
         <button type="Submit">Create Review</button>
