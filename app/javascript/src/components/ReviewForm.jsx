@@ -24,7 +24,7 @@ export default class ReviewForm extends Component {
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
     const data = {
@@ -33,11 +33,32 @@ export default class ReviewForm extends Component {
       score: this.state.score
     };
 
-    this.context.createProduct(data);
+    const response = await this.context.createProduct(data);
+    const errorsContainer = document.querySelector('.form-errors-container');
+
+    if (response.network_error) {
+      const errorMessage = 'There was a network error';
+      errorsContainer.textContent = errorMessage;
+
+    } else if (response.was_created) {
+      errorsContainer.textContent = "";
+
+      this.setState(() => {
+        return {
+          author: '',
+          content: '',
+          score: ''
+        }
+      });
+
+    } else {
+      const errorMessage = response.errors[0];
+      errorsContainer.textContent = errorMessage;
+    }
   }
 
   render() {
-    const scoreOptions = [5,4,3,2,1].map(score => {
+    const scoreOptions = ['5', '4', '3', '2', '1'].map(score => {
       return (
         <Fragment key={score}>
           <input
@@ -46,6 +67,7 @@ export default class ReviewForm extends Component {
             name="score"
             id={`score-${score}`}
             onChange={this.handleInputChange}
+            checked={this.state.score === score}
           />
 
           <label htmlFor={`score-${score}`} />
@@ -76,6 +98,8 @@ export default class ReviewForm extends Component {
         />
 
         <button type="Submit">Create Review</button>
+
+        <div className="form-errors-container"></div>
       </form>
     );
   }
