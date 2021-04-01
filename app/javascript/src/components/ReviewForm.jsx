@@ -43,6 +43,8 @@ export default class ReviewForm extends Component {
     } else if (response.was_created) {
       errorsContainer.textContent = "";
 
+      this.props.addReview(response.review);
+
       this.setState(() => {
         return {
           author: '',

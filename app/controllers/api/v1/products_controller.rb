@@ -5,6 +5,6 @@ class Api::V1::ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @reviews = @product.reviews.sort
+    @reviews = @product.reviews.max_by(5) { |review| review.created_at }
   end
 end
