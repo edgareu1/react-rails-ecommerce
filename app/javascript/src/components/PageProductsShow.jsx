@@ -37,9 +37,14 @@ export default class PageProductsShow extends Component {
     });
   }
 
-  addReview(newReview) {
+  async addReview(newReview) {
+    const productId = Number(this.props.match.params.id);
+    const product = await this.context.getProduct(productId);
+    delete product.reviews;
+
     this.setState(prevState => {
       return {
+        product,
         reviews: [newReview, ...prevState.reviews.slice(0, 4)]
       }
     });
