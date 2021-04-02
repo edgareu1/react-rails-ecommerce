@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { AppContext } from './AppContext';
 import styled from 'styled-components';
+import PageHeader from './PageHeader';
 import ProductDetails from './ProductDetails';
 import ProductNonExistent from './ProductNonExistent';
 import ReviewsList from './ReviewsList';
@@ -37,9 +38,14 @@ export default class PageProductsShow extends Component {
     });
   }
 
-  addReview(newReview) {
+  async addReview(newReview) {
+    const productId = Number(this.props.match.params.id);
+    const product = await this.context.getProduct(productId);
+    delete product.reviews;
+
     this.setState(prevState => {
       return {
+        product,
         reviews: [newReview, ...prevState.reviews.slice(0, 4)]
       }
     });
@@ -49,10 +55,17 @@ export default class PageProductsShow extends Component {
     return (
       <Fragment>
         {Object.keys(this.state.product).length ? (
-            <ContentContainer>
-              <ProductDetails product={this.state.product} addReview={this.addReview} />
-              <ReviewsList reviews={this.state.reviews} />
-            </ContentContainer>
+            <Fragment>
+              <PageHeader>{this.state.product.name}</PageHeader>
+
+              <ContentContainer>
+                <ProductDetails
+                  product={this.state.product}
+                  addReview={this.addReview}
+                />
+                <ReviewsList reviews={this.state.reviews} />
+              </ContentContainer>
+            </Fragment>
           ) : (
             <ProductNonExistent />
           )

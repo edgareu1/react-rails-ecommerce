@@ -18,7 +18,7 @@ num_products.times {
     Review.create(
       author: Faker::Book.author,
       content: Faker::Restaurant.review,
-      score: rand(5) + 1,
+      rating: rand(5) + 1,
       product: new_product
     )
   }
