@@ -1,8 +1,8 @@
 .stars {
   float: left;
   overflow: hidden;
-  width: 180px;
   height: 40px;
+  width: 200px;
   margin: 0;
 }
 
@@ -21,20 +21,20 @@
 .stars label:after {
   display: block;
   float: right;
-  color: rgb(80, 80, 80);
-  font-size: 28px;
+  color: var(--minor-dark);
+  font-size: 36px;
   font-family: FontAwesome;
   content: "\f005";
   height: 40px;
-  width: 30px;
+  width: 36px;
   transition: all 0.15s;
 }
 
 .stars label:hover:after,
 .stars label:hover ~ label:after {
-  color: rgba(255, 175, 0, 1) !important;
+  color: var(--star-gold) !important;
 }
 
 .stars input[type="radio"]:checked ~ label:after {
-  color: rgba(255, 175, 0, 1);
+  color: var(--star-gold);
 }

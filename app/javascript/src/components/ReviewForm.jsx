@@ -1,7 +1,59 @@
 import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import { AppContext } from './AppContext';
 
-export default class ReviewForm extends Component {
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 75%;
+  padding: 30px 10%;
+`
+
+const Input = styled.input`
+  font-size: 16px;
+  width: 90%;
+  padding: 4px 8px;
+  border: 1px solid var(--minor-dark);
+  border-radius: 4px;
+  margin: 15px 0;
+`
+
+const TextArea = styled.textarea`
+  font-size: 13px;
+  height: 80px;
+  width: 90%;
+  padding: 4px 8px;
+  border: 1px solid var(--minor-dark);
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 15px;
+`
+
+const Button = styled.button`
+  color: white;
+  background-color: var(--minor-dark);
+  font-size: 20px;
+  font-weight: bold;
+  width: 90%;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px var(--main-light);
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: var(--minor-blue);
+  }
+`
+
+const ErrorContainer = styled.div`
+  color: yellow;
+  font-size: 20px;
+  font-weight: bold;
+`
+
+ export default class ReviewForm extends Component {
   constructor(props) {
     super(props);
 
@@ -78,31 +130,30 @@ export default class ReviewForm extends Component {
     });
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="author"
-          placeholder="Review Author"
-          value={this.state.author}
-          onChange={this.handleInputChange}
-        />
-
+      <Form onSubmit={this.handleSubmit}>
         <div className="stars">
           {ratingOptions}
         </div>
 
-        <input
+        <Input
           type="text"
+          name="author"
+          placeholder="Author Name"
+          value={this.state.author}
+          onChange={this.handleInputChange}
+        />
+
+        <TextArea
           name="content"
-          placeholder="Review Content"
+          placeholder="Write review here"
           value={this.state.content}
           onChange={this.handleInputChange}
         />
 
-        <button type="Submit">Create Review</button>
+        <Button type="Submit">Leave Review</Button>
 
-        <div className="form-errors-container"></div>
-      </form>
+        <ErrorContainer className="form-errors-container" />
+      </Form>
     );
   }
 }
