@@ -3,11 +3,11 @@
 one:
   author: MyString
   content: MyString
-  score: 1
+  rating: 1
   product_id: 1
 
 two:
   author: MyString
   content: MyString
-  score: 1
+  rating: 1
   product_id: 1
