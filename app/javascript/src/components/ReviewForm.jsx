@@ -2,6 +2,15 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { AppContext } from './AppContext';
 
+const inputDefaults = `
+  background: var(--minor-dark);
+  width: 90%;
+  padding: 5px 10px;
+  border: 1px solid var(--medium-dark);
+  border-radius: 4px;
+  margin-bottom: 15px;
+`
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -11,44 +20,38 @@ const Form = styled.form`
 `
 
 const Input = styled.input`
+  ${inputDefaults}
   font-size: 16px;
-  width: 90%;
-  padding: 4px 8px;
-  border: 1px solid var(--minor-dark);
-  border-radius: 4px;
-  margin: 15px 0;
 `
 
 const TextArea = styled.textarea`
+  ${inputDefaults}
   font-size: 13px;
   height: 80px;
-  width: 90%;
-  padding: 4px 8px;
-  border: 1px solid var(--minor-dark);
-  border-radius: 4px;
   resize: vertical;
-  margin-bottom: 15px;
 `
 
 const Button = styled.button`
-  color: white;
-  background-color: var(--minor-dark);
+  color: var(--main-light);
+  background-color: var(--medium-dark);
   font-size: 20px;
   font-weight: bold;
+  text-shadow: 1px 1px 1px var(--main-dark);
   width: 90%;
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 1px 4px var(--main-light);
+  box-shadow: 1px 1px 2px var(--main-dark);
   margin-bottom: 10px;
+  cursor: pointer;
 
   &:hover {
-    background-color: var(--minor-blue);
+    background-color: var(--main-dark);
   }
 `
 
 const ErrorContainer = styled.div`
-  color: yellow;
+  color: rgba(255, 20, 20, 1);
   font-size: 20px;
   font-weight: bold;
 `

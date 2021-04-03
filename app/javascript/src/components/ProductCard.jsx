@@ -10,13 +10,13 @@ const cardDimensions = `
 `
 
 const cardText = `
+  text-align: center;
   font-size: 20px;
   font-weight: bold;
   background: var(--main-light);
-  min-width: 50px;
-  padding: 8px 12px;
-  border-radius: 2px;
-  box-shadow: 1px 1px 2px var(--minor-blue);
+  padding: 10px 15px;
+  white-space: nowrap;
+  overflow: hidden;
 `
 
 const OuterCard = styled.div`
@@ -24,9 +24,9 @@ const OuterCard = styled.div`
 `
 
 const InnerCard = styled.div`
-  position: relative;
   ${cardDimensions}
-  box-shadow: 1px 1px 5px var(--minor-dark);
+  position: relative;
+  box-shadow: 1px 1px 2px var(--medium-dark);
 `
 
 const CardImg = styled.img`
@@ -35,17 +35,19 @@ const CardImg = styled.img`
 `
 
 const CardTitle = styled.h3`
-  position: absolute;
-  top: 20px;
-  left: 20px;
   ${cardText}
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 `
 
 const CardPrice = styled.p`
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
   ${cardText}
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top-right-radius: 5%;
 `
 
 export default class ProductCard extends Component {

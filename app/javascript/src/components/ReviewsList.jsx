@@ -15,7 +15,7 @@ export default class ReviewsList extends Component {
   render() {
     return (
       <Container>
-        <Title>Reviews List</Title>
+        <Title>Reviews</Title>
 
         <div>
           {this.props.reviews.map(review => {

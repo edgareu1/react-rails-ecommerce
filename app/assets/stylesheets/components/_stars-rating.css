@@ -3,7 +3,7 @@
   overflow: hidden;
   height: 40px;
   width: 200px;
-  margin: 0;
+  margin-bottom: 15px;
 }
 
 .stars input[type="radio"] {
@@ -21,7 +21,7 @@
 .stars label:after {
   display: block;
   float: right;
-  color: var(--minor-dark);
+  color: var(--medium-dark);
   font-size: 36px;
   font-family: FontAwesome;
   content: "\f005";

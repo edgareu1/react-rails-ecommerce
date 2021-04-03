@@ -30,11 +30,10 @@ body {
 }
 
 :root {
-  --main-blue: rgba(55, 45, 155, 1);
-  --minor-blue: rgba(20, 50, 120, 0.45);
   --main-dark: rgba(15, 20, 25, 1);
-  --minor-dark: rgba(15, 20, 25, 0.5);
-  --main-light: rgba(180, 210, 240, 0.5);
-  --minor-light: rgba(200, 210, 220, 0.1);
-  --star-gold: rgba(255, 175, 0, 1);
+  --medium-dark: rgba(15, 20, 25, 0.65);
+  --minor-dark: rgba(15, 20, 25, 0.1);
+  --main-light: rgba(255, 255, 255, 0.9);
+  --minor-light: rgba(240, 240, 240, 0.8);
+  --star-gold: rgba(255, 150, 0, 1);
 }

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  background: white;
+  background: var(--main-light);
   padding: 12px 18px;
   border-radius: 3px;
-  box-shadow: 1px 1px 2px var(--minor-dark);
+  box-shadow: 1px 1px 2px var(--medium-dark);
   margin: 20px 0 10px;
 `
 
@@ -29,15 +29,15 @@ const star = color => {
   return `
     &:after {
       color: var(${color});
-      font-size: 18px;
       font-family: FontAwesome;
+      font-size: 18px;
       content: "\f005";
     }
   `;
 }
 
 const GoldStar = styled.span`${star('--star-gold')}`
-const DarkStar = styled.span`${star('--minor-dark')}`
+const DarkStar = styled.span`${star('--medium-dark')}`
 
 export default class ReviewElement extends Component {
   render() {
