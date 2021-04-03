@@ -13,57 +13,23 @@ const ContentContainer = styled.div`
 `
 
 export default class PageProductsShow extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      product: {},
-      reviews: []
-    }
-
-    this.addReview = this.addReview.bind(this);
-  }
-
-  async componentDidMount() {
+  componentDidMount() {
     const productId = Number(this.props.match.params.id);
-    const product = await this.context.getProduct(productId);
-    const reviews = product.reviews;
-    delete product.reviews;
-
-    this.setState(() => {
-      return {
-        product,
-        reviews
-      }
-    });
-  }
-
-  async addReview(newReview) {
-    const productId = Number(this.props.match.params.id);
-    const product = await this.context.getProduct(productId);
-    delete product.reviews;
-
-    this.setState(prevState => {
-      return {
-        product,
-        reviews: [newReview, ...prevState.reviews.slice(0, 4)]
-      }
-    });
+    this.context.setCurrentProduct(productId);
   }
 
   render() {
+    const currentProduct = this.context.currentProduct;
+
     return (
       <Fragment>
-        {Object.keys(this.state.product).length ? (
+        {Object.keys(currentProduct.product).length ? (
             <Fragment>
-              <PageHeader>{this.state.product.name}</PageHeader>
+              <PageHeader>{currentProduct.product.name}</PageHeader>
 
               <ContentContainer>
-                <ProductDetails
-                  product={this.state.product}
-                  addReview={this.addReview}
-                />
-                <ReviewsList reviews={this.state.reviews} />
+                <ProductDetails product={currentProduct.product} />
+                <ReviewsList reviews={currentProduct.reviews} />
               </ContentContainer>
             </Fragment>
           ) : (

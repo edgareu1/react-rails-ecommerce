@@ -70,7 +70,7 @@ export default class ProductDetails extends Component {
             </ContentText>
           </CardDetails>
 
-          <ReviewForm addReview={this.props.addReview} />
+          <ReviewForm />
         </CardContent>
       </CardContainer>
     );
