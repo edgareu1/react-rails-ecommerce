@@ -22,6 +22,7 @@ const CardContent = styled.div`
   background: var(--minor-dark);
   height: 450px;
   width: 50%;
+  border-radius: 0 5px 5px 0;
 `
 
 const CardDetails = styled.div`
