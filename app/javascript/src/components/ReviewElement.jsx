@@ -16,7 +16,13 @@ const Header = styled.div`
 
 const Author = styled.h6`
   font-size: 18px;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+`
+
+const CreatedTimeAgo = styled.span`
+  font-size: 14px;
+  font-weight: normal;
+  padding-left: 8px;
 `
 
 const star = color => {
@@ -35,7 +41,7 @@ const DarkStar = styled.span`${star('--minor-dark')}`
 
 export default class ReviewElement extends Component {
   render() {
-    const { author, content, rating } = this.props.review;
+    const { author, content, rating, created_time_ago } = this.props.review;
 
     const starArray = [];
     for (let i = 0; i < 5; i++) {
@@ -45,7 +51,14 @@ export default class ReviewElement extends Component {
     return (
       <Container>
         <Header>
-          <Author>{author}</Author>
+          <Author>
+            {author}
+
+            <CreatedTimeAgo>
+              - {created_time_ago} ago
+            </CreatedTimeAgo>
+          </Author>
+
           {starArray}
         </Header>
 
