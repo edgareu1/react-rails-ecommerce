@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import { AppProvider } from './AppContext';
 import Navbar from './Navbar';
 import PageDefault from './PageDefault';
-import PageProductsIndex from './PageProductsIndex';
-import PageProductsShow from './PageProductsShow';
+import PageProductsIndex from './page-products-index/PageProductsIndex';
+import PageProductsShow from './page-products-show/PageProductsShow';
 
 export default class App extends Component {
   render() {

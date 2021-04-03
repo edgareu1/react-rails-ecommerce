@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppConsumer } from './AppContext';
+import { AppConsumer } from '../AppContext';
 import styled from 'styled-components';
 import ProductCard from './ProductCard';
 

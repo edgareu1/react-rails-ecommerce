@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { AppContext } from './AppContext';
+import { AppContext } from '../AppContext';
 
 const inputDefaults = `
   background: var(--minor-dark);

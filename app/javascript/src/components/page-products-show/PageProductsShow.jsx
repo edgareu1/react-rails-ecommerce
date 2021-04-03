@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { AppContext } from './AppContext';
+import { AppContext } from '../AppContext';
 import styled from 'styled-components';
-import PageHeader from './PageHeader';
+import PageHeader from '../PageHeader';
 import ProductDetails from './ProductDetails';
 import ProductNonExistent from './ProductNonExistent';
 import ReviewsList from './ReviewsList';
