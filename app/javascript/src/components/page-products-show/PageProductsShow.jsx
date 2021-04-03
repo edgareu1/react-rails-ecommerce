@@ -23,12 +23,12 @@ export default class PageProductsShow extends Component {
 
     return (
       <Fragment>
-        {Object.keys(currentProduct.product).length ? (
+        {Object.keys(currentProduct).length ? (
             <Fragment>
-              <PageHeader>{currentProduct.product.name}</PageHeader>
+              <PageHeader>{currentProduct.name}</PageHeader>
 
               <ContentContainer>
-                <ProductDetails product={currentProduct.product} />
+                <ProductDetails product={currentProduct} />
                 <ReviewsList reviews={currentProduct.reviews} />
               </ContentContainer>
             </Fragment>

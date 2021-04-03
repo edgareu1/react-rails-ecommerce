@@ -9,10 +9,7 @@ class AppProvider extends Component {
 
     this.state = {
       products: [],
-      currentProduct: {
-        product: {},
-        reviews: []
-      }
+      currentProduct: {}
     };
   }
 
@@ -24,7 +21,7 @@ class AppProvider extends Component {
   // ------------------------------/------------------------------
   setProducts = async () => {
     const url = '/api/v1/products';
-    const productsList = await axios.get(url)
+    const products = await axios.get(url)
       .then(response => response.data)
       .catch(error => {
         console.error(error.message);
@@ -32,7 +29,7 @@ class AppProvider extends Component {
       });
 
     this.setState(() => {
-      return { products: productsList };
+      return { products };
     });
   }
 
@@ -50,60 +47,33 @@ class AppProvider extends Component {
         return defaultValue;
       });
 
-    this.setState(() => {
-      return { currentProductId: id };
-    });
-
     return product;
   }
 
   // ------------------------------/------------------------------
   setCurrentProduct = async (id) => {
-    const product = await this.getProduct(id);
-    const reviews = product.reviews;
-    delete product.reviews;
+    const currentProduct = await this.getProduct(id);
 
     this.setState(() => {
-      return {
-        currentProduct: {
-          product,
-          reviews
-        }
-      }
+      return { currentProduct }
     });
   }
 
   // ------------------------------/------------------------------
   createReview = async (data) => {
-    const url = '/api/v1/products/' + this.state.currentProduct.product.id + '/reviews';
+    const url = '/api/v1/products/' + this.state.currentProduct.id + '/reviews';
     const errorsContainer = document.querySelector('.form-errors-container');
-    let errorMessage;
+    let errorMessage = '';
 
     const response = await axios.post(url, data)
       .then(response => JSON.parse(response.request.response))
       .catch(error => {
         console.error(error.message);
-        return { network_error: true };
+        return { errors: ['There was a network error'] }
       });
 
-    if (response.network_error) {
-      errorMessage = 'There was a network error';
-
-    } else if (response.was_created) {
-      errorMessage = '';
-
-      const product = await this.getProduct(this.state.currentProduct.product.id);
-      delete product.reviews;
-
-      this.setState((prevState) => {
-        return {
-          currentProduct: {
-            product,
-            reviews: [response.review, ...prevState.currentProduct.reviews.slice(0, 4)]
-          }
-        }
-      });
-
+    if (response.was_created) {
+      this.setCurrentProduct(this.state.currentProduct.id);
     } else {
       errorMessage = response.errors[0];
     }

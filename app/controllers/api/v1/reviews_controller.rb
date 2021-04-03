@@ -13,7 +13,6 @@ class Api::V1::ReviewsController < ApplicationController
     end
 
     render json: {
-      network_error: false,
       was_created: was_review_created,
       review: hash_review,
       errors: review.errors.full_messages
