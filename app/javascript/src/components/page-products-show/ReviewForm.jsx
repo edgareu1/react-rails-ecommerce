@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { AppContext } from './AppContext';
+import { AppContext } from '../AppContext';
 
 const inputDefaults = `
   background: var(--minor-dark);
@@ -88,18 +88,9 @@ const ErrorContainer = styled.div`
       rating: this.state.rating
     };
 
-    const response = await this.context.createProduct(data);
-    const errorsContainer = document.querySelector('.form-errors-container');
+    const wasCreated = await this.context.createReview(data);
 
-    if (response.network_error) {
-      const errorMessage = 'There was a network error';
-      errorsContainer.textContent = errorMessage;
-
-    } else if (response.was_created) {
-      errorsContainer.textContent = "";
-
-      this.props.addReview(response.review);
-
+    if (wasCreated) {
       this.setState(() => {
         return {
           author: '',
@@ -107,10 +98,6 @@ const ErrorContainer = styled.div`
           rating: ''
         }
       });
-
-    } else {
-      const errorMessage = response.errors[0];
-      errorsContainer.textContent = errorMessage;
     }
   }
 

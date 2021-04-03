@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import displayPrice from '../utils/displayPrice';
+import displayPrice from '../../utils/displayPrice';
 
 const cardDimensions = `
   height: 400px;

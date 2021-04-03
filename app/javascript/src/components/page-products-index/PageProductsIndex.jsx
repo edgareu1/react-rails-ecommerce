@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PageHeader from './PageHeader';
+import PageHeader from '../PageHeader';
 import ProductsList from './ProductsList';
 
 export default class PageProductsIndex extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import displayPrice from '../utils/displayPrice';
+import displayPrice from '../../utils/displayPrice';
 import ReviewForm from './ReviewForm';
 
 const CardContainer = styled.div`
@@ -70,7 +70,7 @@ export default class ProductDetails extends Component {
             </ContentText>
           </CardDetails>
 
-          <ReviewForm addReview={this.props.addReview} />
+          <ReviewForm />
         </CardContent>
       </CardContainer>
     );

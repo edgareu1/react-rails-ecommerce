@@ -6,30 +6,34 @@ const AppContext = React.createContext();
 class AppProvider extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       products: [],
-      currentProductId: null
+      currentProduct: {}
     };
   }
 
+  // ------------------------------/------------------------------
   componentDidMount() {
     this.setProducts();
   }
 
+  // ------------------------------/------------------------------
   setProducts = async () => {
     const url = '/api/v1/products';
-    const productsList = await axios.get(url)
+    const products = await axios.get(url)
       .then(response => response.data)
       .catch(error => {
-        console.log(error.message);
+        console.error(error.message);
         return [];
       });
 
     this.setState(() => {
-      return { products: productsList };
+      return { products };
     });
   }
 
+  // ------------------------------/------------------------------
   getProduct = async (id) => {
     const defaultValue = {};
 
@@ -39,37 +43,54 @@ class AppProvider extends Component {
     const product = await axios.get(url)
       .then(response => response.data)
       .catch(error => {
-        console.log(error.message);
+        console.error(error.message);
         return defaultValue;
       });
-
-    this.setState(() => {
-      return { currentProductId: id };
-    });
 
     return product;
   }
 
-  createProduct = async (data) => {
-    const url = '/api/v1/products/' + this.state.currentProductId + '/reviews';
+  // ------------------------------/------------------------------
+  setCurrentProduct = async (id) => {
+    const currentProduct = await this.getProduct(id);
+
+    this.setState(() => {
+      return { currentProduct }
+    });
+  }
+
+  // ------------------------------/------------------------------
+  createReview = async (data) => {
+    const url = '/api/v1/products/' + this.state.currentProduct.id + '/reviews';
+    const errorsContainer = document.querySelector('.form-errors-container');
+    let errorMessage = '';
 
     const response = await axios.post(url, data)
       .then(response => JSON.parse(response.request.response))
       .catch(error => {
-        console.error(error);
-        return { network_error: true };
+        console.error(error.message);
+        return { errors: ['There was a network error'] }
       });
 
-    return response;
+    if (response.was_created) {
+      this.setCurrentProduct(this.state.currentProduct.id);
+    } else {
+      errorMessage = response.errors[0];
+    }
+
+    errorsContainer.textContent = errorMessage;
+
+    return response.was_created ? true : false;
   }
 
+  // ------------------------------/------------------------------
   render() {
     return (
       <AppContext.Provider
         value={{
           ...this.state,
-          getProduct: this.getProduct,
-          createProduct: this.createProduct
+          setCurrentProduct: this.setCurrentProduct,
+          createReview: this.createReview
         }}
       >
         {this.props.children}
