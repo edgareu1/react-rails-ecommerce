@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Header = styled.div`
   text-align: center;
-  color: var(--main-blue);
-  font-size: 5rem;
+  color: var(--main-dark);
+  font-size: 4rem;
   font-weight: bold;
 `
 

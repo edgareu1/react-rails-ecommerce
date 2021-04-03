@@ -7,7 +7,7 @@ const CardContainer = styled.div`
   display: flex;
   width: 100%;
   border-radius: 5px;
-  box-shadow: 1px 1px 3px var(--minor-dark);
+  box-shadow: 1px 1px 2px var(--medium-dark);
   margin: 20px 0;
 `
 
@@ -15,13 +15,13 @@ const CardImg = styled.img`
   height: 450px;
   width: 50%;
   border-radius: 5px 0 0 5px;
-  box-shadow: 1px 0 3px var(--minor-dark);
 `
 
 const CardContent = styled.div`
-  background: var(--minor-dark);
+  background: var(--main-light);
   height: 450px;
   width: 50%;
+  border-radius: 0 5px 5px 0;
 `
 
 const CardDetails = styled.div`
@@ -30,11 +30,10 @@ const CardDetails = styled.div`
   justify-content: space-around;
   height: 25%;
   padding: 15px 10%;
-  box-shadow: 0 1px 3px var(--minor-dark);
+  border-bottom: 1px solid var(--medium-dark);
 `
 
 const ContentText = styled.h3`
-  color: white;
   font-size: 26px;
 `
 
