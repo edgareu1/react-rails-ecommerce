@@ -62,7 +62,6 @@ class AppProvider extends Component {
   // ------------------------------/------------------------------
   createReview = async (data) => {
     const url = '/api/v1/products/' + this.state.currentProduct.id + '/reviews';
-    const errorsContainer = document.querySelector('.form-errors-container');
     let errorMessage = '';
 
     const response = await axios.post(url, data)
@@ -78,9 +77,9 @@ class AppProvider extends Component {
       errorMessage = response.errors[0];
     }
 
-    errorsContainer.textContent = errorMessage;
+    const wasCreated = response.was_created ? true : false;
 
-    return response.was_created ? true : false;
+    return {wasCreated, errorMessage};
   }
 
   // ------------------------------/------------------------------

@@ -63,7 +63,8 @@ const ErrorContainer = styled.div`
     this.state = {
       author: '',
       content: '',
-      rating: ''
+      rating: '',
+      errorMessage: ''
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -88,17 +89,15 @@ const ErrorContainer = styled.div`
       rating: this.state.rating
     };
 
-    const wasCreated = await this.context.createReview(data);
+    const {wasCreated, errorMessage} = await this.context.createReview(data);
 
     if (wasCreated) {
-      this.setState(() => {
-        return {
-          author: '',
-          content: '',
-          rating: ''
-        }
-      });
+      for (let key in data) {
+        data[key] = '';
+      }
     }
+
+    this.setState(() => ({...data, errorMessage}));
   }
 
   render() {
@@ -142,7 +141,7 @@ const ErrorContainer = styled.div`
 
         <Button type="Submit">Leave Review</Button>
 
-        <ErrorContainer className="form-errors-container" />
+        <ErrorContainer>{this.state.errorMessage}</ErrorContainer>
       </Form>
     );
   }
