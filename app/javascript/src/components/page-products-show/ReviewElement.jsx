@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import ReviewDelete from './ReviewDelete';
 
 const Container = styled.div`
   background: var(--main-light);
@@ -10,6 +11,8 @@ const Container = styled.div`
 `
 
 const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
   padding-left: 3px;
   margin-bottom: 8px;
 `
@@ -41,7 +44,7 @@ const DarkStar = styled.span`${star('--medium-dark')}`
 
 export default class ReviewElement extends Component {
   render() {
-    const { author, content, rating, created_time_ago } = this.props.review;
+    const { id, author, content, rating, created_time_ago, isEditable } = this.props.review;
 
     const starArray = [];
     for (let i = 0; i < 5; i++) {
@@ -51,15 +54,19 @@ export default class ReviewElement extends Component {
     return (
       <Container>
         <Header>
-          <Author>
-            {author}
+          <div>
+            <Author>
+              {author}
 
-            <CreatedTimeAgo>
-              - {created_time_ago} ago
-            </CreatedTimeAgo>
-          </Author>
+              <CreatedTimeAgo>
+                - {created_time_ago} ago
+              </CreatedTimeAgo>
+            </Author>
 
-          {starArray}
+            {starArray}
+          </div>
+
+          {isEditable && <ReviewDelete reviewId={id} />}
         </Header>
 
         <p>{content}</p>

@@ -51,8 +51,18 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
-  setCurrentProduct = async (id) => {
+  setCurrentProduct = async (id, createdReview) => {
     const currentProduct = await this.getProduct(id);
+
+    if (createdReview) {
+      const reviewsList = currentProduct.reviews;
+      const newReview = {
+        ...reviewsList[0],
+        isEditable: true
+      };
+
+      currentProduct.reviews = [newReview, ...reviewsList.slice(1)];
+    }
 
     this.setState(() => {
       return { currentProduct }
@@ -61,8 +71,8 @@ class AppProvider extends Component {
 
   // ------------------------------/------------------------------
   createReview = async (data) => {
-    const url = '/api/v1/products/' + this.state.currentProduct.id + '/reviews';
-    const errorsContainer = document.querySelector('.form-errors-container');
+    const productId = this.state.currentProduct.id;
+    const url = '/api/v1/products/' + productId + '/reviews';
     let errorMessage = '';
 
     const response = await axios.post(url, data)
@@ -73,14 +83,27 @@ class AppProvider extends Component {
       });
 
     if (response.was_created) {
-      this.setCurrentProduct(this.state.currentProduct.id);
+      this.setCurrentProduct(productId, true);
     } else {
       errorMessage = response.errors[0];
     }
 
-    errorsContainer.textContent = errorMessage;
+    const wasCreated = response.was_created ? true : false;
 
-    return response.was_created ? true : false;
+    return {wasCreated, errorMessage};
+  }
+
+  // ------------------------------/------------------------------
+  deleteReview = async (id) => {
+    let productId = this.state.currentProduct.id;
+    const url = '/api/v1/products/' + productId + '/reviews/' + id;
+
+    await axios.delete(url)
+      .catch(error => {
+        console.error(error.message);
+      });
+
+    this.setCurrentProduct(productId);
   }
 
   // ------------------------------/------------------------------
@@ -90,7 +113,8 @@ class AppProvider extends Component {
         value={{
           ...this.state,
           setCurrentProduct: this.setCurrentProduct,
-          createReview: this.createReview
+          createReview: this.createReview,
+          deleteReview: this.deleteReview
         }}
       >
         {this.props.children}
