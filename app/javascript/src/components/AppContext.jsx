@@ -51,8 +51,18 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
-  setCurrentProduct = async (id) => {
+  setCurrentProduct = async (id, createdReview) => {
     const currentProduct = await this.getProduct(id);
+
+    if (createdReview) {
+      const reviewsList = currentProduct.reviews;
+      const newReview = {
+        ...reviewsList[0],
+        isEditable: true
+      };
+
+      currentProduct.reviews = [newReview, ...reviewsList.slice(1)];
+    }
 
     this.setState(() => {
       return { currentProduct }
@@ -61,7 +71,8 @@ class AppProvider extends Component {
 
   // ------------------------------/------------------------------
   createReview = async (data) => {
-    const url = '/api/v1/products/' + this.state.currentProduct.id + '/reviews';
+    const productId = this.state.currentProduct.id;
+    const url = '/api/v1/products/' + productId + '/reviews';
     let errorMessage = '';
 
     const response = await axios.post(url, data)
@@ -72,7 +83,7 @@ class AppProvider extends Component {
       });
 
     if (response.was_created) {
-      this.setCurrentProduct(this.state.currentProduct.id);
+      this.setCurrentProduct(productId, true);
     } else {
       errorMessage = response.errors[0];
     }
