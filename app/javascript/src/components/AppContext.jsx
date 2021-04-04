@@ -94,13 +94,27 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
+  deleteReview = async (id) => {
+    let productId = this.state.currentProduct.id;
+    const url = '/api/v1/products/' + productId + '/reviews/' + id;
+
+    await axios.delete(url)
+      .catch(error => {
+        console.error(error.message);
+      });
+
+    this.setCurrentProduct(productId);
+  }
+
+  // ------------------------------/------------------------------
   render() {
     return (
       <AppContext.Provider
         value={{
           ...this.state,
           setCurrentProduct: this.setCurrentProduct,
-          createReview: this.createReview
+          createReview: this.createReview,
+          deleteReview: this.deleteReview
         }}
       >
         {this.props.children}
