@@ -6,6 +6,7 @@ const Header = styled.div`
   color: var(--main-dark);
   font-size: 4rem;
   font-weight: bold;
+  margin-bottom: 25px;
 `
 
 export default class PageHeader extends Component {

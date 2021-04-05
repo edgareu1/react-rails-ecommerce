@@ -9,6 +9,11 @@ class AppProvider extends Component {
 
     this.state = {
       products: [],
+      cart: [],
+      cartNum: 0,
+      cartSubtotal: 0,
+      deliveryCost: 0,
+      cartTotal: 0,
       currentProduct: {}
     };
   }
@@ -22,7 +27,15 @@ class AppProvider extends Component {
   setProducts = async () => {
     const url = '/api/v1/products';
     const products = await axios.get(url)
-      .then(response => response.data)
+      .then(response => {
+        return response.data.map(el => {
+          el.inCart = false;
+          el.count = 0;
+          el.total = 0;
+
+          return el;
+        });
+      })
       .catch(error => {
         console.error(error.message);
         return [];
@@ -70,6 +83,44 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
+  addToCart = (id) => {
+    const product = this.state.products.find(el => el.id === id);
+
+    product.inCart = true;
+    product.count = 1;
+    product.total = product.price;
+
+    this.setState(() => {
+      return {
+        cart: [...this.state.cart, product]
+      }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  setTotals = () => {
+    let cartSubtotal = 0;
+    let cartNum = 0;
+
+    this.state.cart.forEach(el => {
+      cartNum += el.count;
+      cartSubtotal += el.total;
+    });
+
+    const deliveryCost = Math.max(500, cartSubtotal * 0.1);
+    const cartTotal = cartSubtotal + deliveryCost;
+
+    this.setState(() => {
+      return {
+        cartNum,
+        cartSubtotal,
+        deliveryCost,
+        cartTotal
+      }
+    });
+  }
+
+  // ------------------------------/------------------------------
   createReview = async (data) => {
     const productId = this.state.currentProduct.id;
     const url = '/api/v1/products/' + productId + '/reviews';
@@ -113,6 +164,7 @@ class AppProvider extends Component {
         value={{
           ...this.state,
           setCurrentProduct: this.setCurrentProduct,
+          addToCart: this.addToCart,
           createReview: this.createReview,
           deleteReview: this.deleteReview
         }}
