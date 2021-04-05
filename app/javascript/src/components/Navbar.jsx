@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { AppConsumer } from './AppContext';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -34,6 +35,16 @@ export default class Navbar extends Component {
         </Link>
 
         <Link to={"/cart"}>
+          <AppConsumer>
+            {value => {
+              return (
+                <span className="cart-number">
+                  {value.cartNum !== 0 ? `(${value.cartNum})` : ''}
+                </span>
+              );
+            }}
+          </AppConsumer>
+
           <Cart />
         </Link>
       </Container>

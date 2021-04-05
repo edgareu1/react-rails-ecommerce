@@ -8,7 +8,7 @@ const CardContainer = styled.div`
   width: 100%;
   border-radius: 5px;
   box-shadow: 1px 1px 2px var(--medium-dark);
-  margin: 20px 0;
+  margin-bottom: 20px;
 `
 
 const CardImg = styled.img`
