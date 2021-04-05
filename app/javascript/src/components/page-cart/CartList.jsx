@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AppConsumer } from '../AppContext';
+import displayPrice from '../../utils/displayPrice';
 import CartElement from './CartElement';
 
 export default class CartList extends Component {
@@ -26,6 +27,21 @@ export default class CartList extends Component {
             }}
           </AppConsumer>
         </tbody>
+
+          <tfoot>
+            <AppConsumer>
+              {value => {
+                return (
+                  <tr>
+                    <td>Subtotal</td>
+                    <td>---</td>
+                    <td>{value.cartNum}</td>
+                    <td>{displayPrice(value.cartSubtotal)}</td>
+                  </tr>
+                );
+              }}
+            </AppConsumer>
+          </tfoot>
       </table>
     );
   }
