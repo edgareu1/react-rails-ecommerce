@@ -11,6 +11,9 @@ class AppProvider extends Component {
       products: [],
       cart: [],
       cartNum: 0,
+      cartSubtotal: 0,
+      deliveryCost: 0,
+      cartTotal: 0,
       currentProduct: {}
     };
   }
@@ -96,13 +99,23 @@ class AppProvider extends Component {
 
   // ------------------------------/------------------------------
   setTotals = () => {
-    const cartNum = this.state.cart.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.count;
-    }, 0);
+    let cartSubtotal = 0;
+    let cartNum = 0;
+
+    this.state.cart.forEach(el => {
+      cartNum += el.count;
+      cartSubtotal += el.total;
+    });
+
+    const deliveryCost = Math.max(500, cartSubtotal * 0.1);
+    const cartTotal = cartSubtotal + deliveryCost;
 
     this.setState(() => {
       return {
-        cartNum
+        cartNum,
+        cartSubtotal,
+        deliveryCost,
+        cartTotal
       }
     });
   }
