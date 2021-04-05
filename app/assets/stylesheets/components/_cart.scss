@@ -1,0 +1,24 @@
+table.cart-list {
+  min-width: 900px;
+  max-width: 900px;
+  border-collapse: collapse;
+  margin: 0 auto;
+
+  tr,
+  th,
+  td {
+    border: 1px solid var(--medium-dark);
+  }
+
+  th {
+    text-align: center;
+    font-size: 28px;
+    line-height: 2;
+  }
+
+  td {
+    text-align: center;
+    font-size: 18px;
+    line-height: 3;
+  }
+}
