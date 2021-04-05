@@ -10,6 +10,7 @@ class AppProvider extends Component {
     this.state = {
       products: [],
       cart: [],
+      cartNum: 0,
       currentProduct: {}
     };
   }
@@ -89,6 +90,19 @@ class AppProvider extends Component {
     this.setState(() => {
       return {
         cart: [...this.state.cart, product]
+      }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  setTotals = () => {
+    const cartNum = this.state.cart.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.count;
+    }, 0);
+
+    this.setState(() => {
+      return {
+        cartNum
       }
     });
   }

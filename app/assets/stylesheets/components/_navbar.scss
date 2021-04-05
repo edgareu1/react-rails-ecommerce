@@ -1,0 +1,17 @@
+#navbar a {
+  font-size: 40px;
+  text-decoration: none;
+
+  span {
+    color: var(--medium-dark);
+  }
+
+  &:hover span {
+    color: var(--main-dark);
+  }
+}
+
+.cart-number {
+  font-size: 35px;
+  padding-right: 10px;
+}
