@@ -98,20 +98,66 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
+  decrement = (id) => {
+    const product = this.state.products.find(el => el.id === id);
+
+    product.count--;
+    product.total = product.count * product.price;
+    product.inCart = product.count !== 0;
+
+    this.setState(() => {
+      return { product }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  increment = (id) => {
+    const product = this.state.products.find(el => el.id === id);
+
+    product.count++;
+    product.total = product.count * product.price;
+
+    this.setState(() => {
+      return { product }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  checkout = () => {
+    const products = this.state.products.map(el => {
+      el.inCart = false;
+      el.count = 0;
+      el.total = 0;
+
+      return el;
+    });
+
+    this.setState(() => {
+      return { products }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
   setTotals = () => {
+    const cart = this.state.cart.filter(el => el.count > 0);
     let cartSubtotal = 0;
     let cartNum = 0;
+    let deliveryCost = 0;
 
-    this.state.cart.forEach(el => {
+    cart.forEach(el => {
       cartNum += el.count;
       cartSubtotal += el.total;
     });
 
-    const deliveryCost = Math.max(500, cartSubtotal * 0.1);
+    if (cart.length > 0) {
+      deliveryCost = Math.max(500, cartSubtotal * 0.1);
+    }
+
     const cartTotal = cartSubtotal + deliveryCost;
 
     this.setState(() => {
       return {
+        cart,
         cartNum,
         cartSubtotal,
         deliveryCost,
@@ -165,6 +211,9 @@ class AppProvider extends Component {
           ...this.state,
           setCurrentProduct: this.setCurrentProduct,
           addToCart: this.addToCart,
+          decrement: this.decrement,
+          increment: this.increment,
+          checkout: this.checkout,
           createReview: this.createReview,
           deleteReview: this.deleteReview
         }}

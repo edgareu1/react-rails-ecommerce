@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import styled from 'styled-components';
-import { AppConsumer } from '../AppContext';
+import { AppContext } from '../AppContext';
 import displayPrice from '../../utils/displayPrice';
+
+const MessageContainer = styled.div`
+  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 10px;
+`
 
 const Button = styled.button`
   color: var(--main-light);
@@ -22,33 +29,56 @@ const Button = styled.button`
 `
 
 export default class CartTotal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      cartMessage: ''
+    };
+  }
+
+  handleCheckout = () => {
+    if (this.context.cart.length > 0) {
+      this.context.checkout();
+
+      this.setState({
+        cartMessage: 'Purchase was sucessful!'
+      });
+
+    } else {
+      this.setState({
+        cartMessage: 'Cart is empty!'
+      });
+    }
+  }
+
   render() {
+    const { deliveryCost, cartTotal } = this.context;
+
     return (
-      <AppConsumer>
-        {value => {
-          const { deliveryCost, cartTotal  } = value;
+      <div className="cart-total">
+        <table>
+          <tbody>
+            <tr>
+              <td>Delivery:</td>
+              <td>{displayPrice(deliveryCost)}</td>
+            </tr>
 
-          return (
-            <div className="cart-total">
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Delivery:</td>
-                    <td>{displayPrice(deliveryCost)}</td>
-                  </tr>
+            <tr>
+              <td>Total:</td>
+              <td>{displayPrice(cartTotal)}</td>
+            </tr>
+          </tbody>
+        </table>
 
-                  <tr>
-                    <td>Total:</td>
-                    <td>{displayPrice(cartTotal)}</td>
-                  </tr>
-                </tbody>
-              </table>
+        <Button onClick={this.handleCheckout}>Checkout</Button>
 
-              <Button>Checkout</Button>
-            </div>
-          );
-        }}
-      </AppConsumer>
+        <MessageContainer>
+          {this.state.cartMessage}
+        </MessageContainer>
+      </div>
     );
   }
 }
+
+CartTotal.contextType = AppContext;
