@@ -9,7 +9,7 @@ const Button = styled.button`
   font-size: 20px;
   font-weight: bold;
   text-shadow: 1px 1px 1px var(--main-dark);
-  padding: 0 8px;
+  width: 30px;
   border: none;
   border-radius: 5px;
   box-shadow: 1px 1px 2px var(--main-dark);
@@ -32,11 +32,13 @@ export default class CartElement extends Component {
             <tr>
               <td>{name}</td>
               <td>{displayPrice(price)}</td>
+
               <td>
                 <Button onClick={() => { value.decrement(id) }}>-</Button>
                 {count}
                 <Button onClick={() => { value.increment(id) }}>+</Button>
               </td>
+
               <td>{displayPrice(total)}</td>
             </tr>
           );

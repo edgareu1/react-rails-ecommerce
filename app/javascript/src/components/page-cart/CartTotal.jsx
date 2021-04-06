@@ -26,7 +26,7 @@ export default class CartTotal extends Component {
     return (
       <AppConsumer>
         {value => {
-          const { deliveryCost, cartTotal  } = value;
+          const { deliveryCost, cartTotal, checkout } = value;
 
           return (
             <div className="cart-total">
@@ -44,7 +44,7 @@ export default class CartTotal extends Component {
                 </tbody>
               </table>
 
-              <Button>Checkout</Button>
+              <Button onClick={checkout}>Checkout</Button>
             </div>
           );
         }}

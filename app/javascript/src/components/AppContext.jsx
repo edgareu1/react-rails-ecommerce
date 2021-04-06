@@ -123,17 +123,36 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
+  checkout = () => {
+    const products = this.state.products.map(el => {
+      el.inCart = false;
+      el.count = 0;
+      el.total = 0;
+
+      return el;
+    });
+
+    this.setState(() => {
+      return { products }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
   setTotals = () => {
     const cart = this.state.cart.filter(el => el.count > 0);
     let cartSubtotal = 0;
     let cartNum = 0;
+    let deliveryCost = 0;
 
     cart.forEach(el => {
       cartNum += el.count;
       cartSubtotal += el.total;
     });
 
-    const deliveryCost = Math.max(500, cartSubtotal * 0.1);
+    if (cart.length > 0) {
+      deliveryCost = Math.max(500, cartSubtotal * 0.1);
+    }
+
     const cartTotal = cartSubtotal + deliveryCost;
 
     this.setState(() => {
@@ -194,6 +213,7 @@ class AppProvider extends Component {
           addToCart: this.addToCart,
           decrement: this.decrement,
           increment: this.increment,
+          checkout: this.checkout,
           createReview: this.createReview,
           deleteReview: this.deleteReview
         }}
