@@ -98,11 +98,37 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
+  decrement = (id) => {
+    const product = this.state.products.find(el => el.id === id);
+
+    product.count--;
+    product.total = product.count * product.price;
+    product.inCart = product.count !== 0;
+
+    this.setState(() => {
+      return { product }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  increment = (id) => {
+    const product = this.state.products.find(el => el.id === id);
+
+    product.count++;
+    product.total = product.count * product.price;
+
+    this.setState(() => {
+      return { product }
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
   setTotals = () => {
+    const cart = this.state.cart.filter(el => el.count > 0);
     let cartSubtotal = 0;
     let cartNum = 0;
 
-    this.state.cart.forEach(el => {
+    cart.forEach(el => {
       cartNum += el.count;
       cartSubtotal += el.total;
     });
@@ -112,6 +138,7 @@ class AppProvider extends Component {
 
     this.setState(() => {
       return {
+        cart,
         cartNum,
         cartSubtotal,
         deliveryCost,
@@ -165,6 +192,8 @@ class AppProvider extends Component {
           ...this.state,
           setCurrentProduct: this.setCurrentProduct,
           addToCart: this.addToCart,
+          decrement: this.decrement,
+          increment: this.increment,
           createReview: this.createReview,
           deleteReview: this.deleteReview
         }}
