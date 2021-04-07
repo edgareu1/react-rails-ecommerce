@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PageHeader from './PageHeader';
 
 export default class PageDefault extends Component {
   render() {
     return (
-      <h1>Default</h1>
+      <PageHeader>404 - Page not found</PageHeader>
     );
   }
 }
