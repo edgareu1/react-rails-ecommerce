@@ -14,7 +14,6 @@ const Button = styled.button`
   border-radius: 5px;
   box-shadow: 1px 1px 2px var(--main-dark);
   margin: 0 8px;
-  cursor: pointer;
 
   &:hover {
     background-color: var(--main-dark);

@@ -29,6 +29,10 @@ body {
   background-color: var(--minor-light);
 }
 
+button {
+  cursor: pointer;
+}
+
 :root {
   --main-dark: rgba(15, 20, 25, 1);
   --medium-dark: rgba(15, 20, 25, 0.65);
