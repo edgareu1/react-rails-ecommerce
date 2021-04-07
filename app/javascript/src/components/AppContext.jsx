@@ -4,36 +4,34 @@ const axios = require('axios');
 const AppContext = React.createContext();
 
 class AppProvider extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      products: [],
-      cart: [],
-      cartNum: 0,
-      cartSubtotal: 0,
-      deliveryCost: 0,
-      cartTotal: 0,
-      currentProduct: {}
-    };
+  state = {
+    products: [],
+    cart: [],
+    cartNum: 0,
+    cartSubtotal: 0,
+    deliveryCost: 0,
+    cartTotal: 0,
+    currentProduct: {}
   }
 
+  // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   componentDidMount() {
     this.setProducts();
   }
 
   // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
   setProducts = async () => {
     const url = '/api/v1/products';
     const products = await axios.get(url)
       .then(response => {
-        return response.data.map(el => {
-          el.inCart = false;
-          el.count = 0;
-          el.total = 0;
+        return response.data.map(product => {
+          product.inCart = false;
+          product.count = 0;
+          product.total = 0;
 
-          return el;
+          return product;
         });
       })
       .catch(error => {
@@ -46,6 +44,7 @@ class AppProvider extends Component {
     });
   }
 
+  // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   getProduct = async (id) => {
     const defaultValue = {};
@@ -64,89 +63,109 @@ class AppProvider extends Component {
   }
 
   // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
   setCurrentProduct = async (id, createdReview) => {
     const currentProduct = await this.getProduct(id);
 
     if (createdReview) {
       const reviewsList = currentProduct.reviews;
-      const newReview = {
-        ...reviewsList[0],
-        isEditable: true
-      };
+      const newReview = Object.assign({}, reviewsList[0], { isEditable: true });
 
       currentProduct.reviews = [newReview, ...reviewsList.slice(1)];
     }
 
     this.setState(() => {
-      return { currentProduct }
+      return { currentProduct };
     });
   }
 
   // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
   addToCart = (id) => {
-    const product = this.state.products.find(el => el.id === id);
+    const product = this.state.products.find(product => product.id === id);
 
     product.inCart = true;
     product.count = 1;
     product.total = product.price;
 
     this.setState(() => {
-      return {
-        cart: [...this.state.cart, product]
-      }
+      return { cart: [...this.state.cart, product] };
     }, this.setTotals);
   }
 
+  // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   decrement = (id) => {
-    const product = this.state.products.find(el => el.id === id);
+    const products = this.state.products.map(product => {
+      if (product.id === id) {
+        const newProductCount = --product.count;
+        const newProduct = Object.assign({}, product, {
+          count: newProductCount,
+          total: newProductCount * product.price,
+          inCart: newProductCount !== 0
+        });
+        return newProduct;
 
-    product.count--;
-    product.total = product.count * product.price;
-    product.inCart = product.count !== 0;
-
-    this.setState(() => {
-      return { product }
-    }, this.setTotals);
-  }
-
-  // ------------------------------/------------------------------
-  increment = (id) => {
-    const product = this.state.products.find(el => el.id === id);
-
-    product.count++;
-    product.total = product.count * product.price;
-
-    this.setState(() => {
-      return { product }
-    }, this.setTotals);
-  }
-
-  // ------------------------------/------------------------------
-  checkout = () => {
-    const products = this.state.products.map(el => {
-      el.inCart = false;
-      el.count = 0;
-      el.total = 0;
-
-      return el;
+      } else {
+        return product;
+      }
     });
 
     this.setState(() => {
-      return { products }
+      return { products };
     }, this.setTotals);
   }
 
   // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
+  increment = (id) => {
+    const products = this.state.products.map(product => {
+      if (product.id === id) {
+        const newProductCount = ++product.count;
+        const newProduct = Object.assign({}, product, {
+          count: newProductCount,
+          total: newProductCount * product.price
+        });
+        return newProduct;
+
+      } else {
+        return product;
+      }
+    });
+
+    this.setState(() => {
+      return { products };
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
+  checkout = () => {
+    const products = this.state.products.map(product => {
+      const newProduct = Object.assign({}, product, {
+        count: 0,
+        total: 0,
+        inCart: false
+      });
+      return newProduct;
+    });
+
+    this.setState(() => {
+      return { products };
+    }, this.setTotals);
+  }
+
+  // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
   setTotals = () => {
-    const cart = this.state.cart.filter(el => el.count > 0);
-    let cartSubtotal = 0;
+    const cart = this.state.products.filter(product => product.inCart);
     let cartNum = 0;
+    let cartSubtotal = 0;
     let deliveryCost = 0;
 
-    cart.forEach(el => {
-      cartNum += el.count;
-      cartSubtotal += el.total;
+    cart.forEach(product => {
+      cartNum += product.count;
+      cartSubtotal += product.total;
     });
 
     if (cart.length > 0) {
@@ -162,10 +181,11 @@ class AppProvider extends Component {
         cartSubtotal,
         deliveryCost,
         cartTotal
-      }
+      };
     });
   }
 
+  // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   createReview = async (data) => {
     const productId = this.state.currentProduct.id;
@@ -176,7 +196,7 @@ class AppProvider extends Component {
       .then(response => JSON.parse(response.request.response))
       .catch(error => {
         console.error(error.message);
-        return { errors: ['There was a network error'] }
+        return { errors: ['There was a network error'] };
       });
 
     if (response.was_created) {
@@ -187,9 +207,10 @@ class AppProvider extends Component {
 
     const wasCreated = response.was_created ? true : false;
 
-    return {wasCreated, errorMessage};
+    return { wasCreated, errorMessage };
   }
 
+  // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   deleteReview = async (id) => {
     let productId = this.state.currentProduct.id;
@@ -203,6 +224,7 @@ class AppProvider extends Component {
     this.setCurrentProduct(productId);
   }
 
+  // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   render() {
     return (
