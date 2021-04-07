@@ -7,7 +7,6 @@ const Button = styled.button`
   background: transparent;
   border: none;
   margin-right: 15px;
-  cursor: pointer;
 `
 
 const DeleteIcon = styled.span`

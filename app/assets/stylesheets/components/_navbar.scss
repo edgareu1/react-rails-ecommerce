@@ -1,17 +1,26 @@
-#navbar a {
-  font-size: 40px;
-  text-decoration: none;
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--minor-dark);
+  padding: 10px 50px;
+  border-bottom: 1px solid var(--medium-dark);
+  margin-bottom: 20px;
 
-  span {
-    color: var(--medium-dark);
+  a {
+    font-size: 40px;
+    text-decoration: none;
+
+    span {
+      color: var(--medium-dark);
+    }
+
+    &:hover span {
+      color: var(--main-dark);
+    }
   }
 
-  &:hover span {
-    color: var(--main-dark);
+  .cart-number {
+    font-size: 35px;
+    padding-right: 10px;
   }
-}
-
-.cart-number {
-  font-size: 35px;
-  padding-right: 10px;
 }

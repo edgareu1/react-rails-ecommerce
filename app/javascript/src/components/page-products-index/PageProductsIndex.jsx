@@ -7,7 +7,7 @@ export default class PageProductsIndex extends Component {
     return (
       <Fragment>
         <PageHeader>Products</PageHeader>
-        <ProductsList></ProductsList>
+        <ProductsList />
       </Fragment>
     );
   }

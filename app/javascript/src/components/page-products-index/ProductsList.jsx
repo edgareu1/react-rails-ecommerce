@@ -19,13 +19,7 @@ export default class ProductsList extends Component {
         <AppConsumer>
           {value => {
             return value.products.map(product => {
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                >
-                </ProductCard>
-              );
+              return <ProductCard key={product.id} product={product} />;
             });
           }}
         </AppConsumer>
