@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from '../AppContext';
 import styled from 'styled-components';
 import displayPrice from '../../utils/displayPrice';
+import iconStyle from '../../utils/iconStyle';
 
 // Style variables
 const styleCardDimensions = `
@@ -67,10 +68,7 @@ const CardButton = styled.button`
 `
 
 const Cart = styled.span`
-  &:after {
-    font-family: FontAwesome;
-    content: "\f07a";
-  }
+  ${iconStyle('07a')}
 `
 
 export default class ProductCard extends Component {

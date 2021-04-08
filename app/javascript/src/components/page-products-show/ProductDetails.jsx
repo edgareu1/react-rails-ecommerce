@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import displayPrice from '../../utils/displayPrice';
+import iconStyle from '../../utils/iconStyle';
 import ReviewForm from './ReviewForm';
 
 const Container = styled.div`
@@ -24,13 +25,9 @@ const CardDetails = styled.div`
 `
 
 const Star = styled.span`
+  ${iconStyle('005')}
+  color: var(--star-gold);
   padding-left: 8px;
-
-  &:after {
-    color: var(--star-gold);
-    font-family: FontAwesome;
-    content: "\f005";
-  }
 `
 
 export default class ProductDetails extends Component {

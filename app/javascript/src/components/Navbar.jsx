@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { AppConsumer } from './AppContext';
 import styled from 'styled-components';
+import iconStyle from '../utils/iconStyle';
 
 const IconLogo = styled.span`
-  &:after {
-    font-family: FontAwesome;
-    content: "\f02b";
-  }
+  ${iconStyle('02b')}
 `
 
 const IconCart = styled.span`
-  &:after {
-    font-family: FontAwesome;
-    content: "\f07a";
-  }
+  ${iconStyle('07a')}
 `
 
 export default class Navbar extends Component {

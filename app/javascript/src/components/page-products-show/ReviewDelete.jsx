@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppContext } from '../AppContext';
 import styled from 'styled-components';
+import iconStyle from '../../utils/iconStyle';
 
 const Button = styled.button`
   background: transparent;
@@ -10,10 +11,7 @@ const Button = styled.button`
 `
 
 const DeleteIcon = styled.span`
-  &:after {
-    font-family: FontAwesome;
-    content: "\f1f8";
-  }
+  ${iconStyle('1f8')}
 
   &:hover {
     color: red;

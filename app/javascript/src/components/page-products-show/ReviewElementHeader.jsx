@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import iconStyle from '../../utils/iconStyle';
 import ReviewDelete from './ReviewDelete';
 
 const Container = styled.div`
@@ -22,12 +23,9 @@ const CreatedTimeAgo = styled.span`
 
 const star = color => {
   return `
-    &:after {
-      color: var(${color});
-      font-family: FontAwesome;
-      font-size: 18px;
-      content: "\f005";
-    }
+    ${iconStyle('005')}
+    color: var(${color});
+    font-size: 18px;
   `;
 }
 
