@@ -33,21 +33,9 @@ const TextArea = styled.textarea`
 `
 
 const Button = styled.button`
-  color: var(--main-light);
-  background-color: var(--medium-dark);
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px var(--main-dark);
   width: 90%;
   padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px var(--main-dark);
   margin-bottom: 10px;
-
-  &:hover {
-    background-color: var(--main-dark);
-  }
 `
 
 const ErrorContainer = styled.div`
@@ -124,7 +112,7 @@ const ErrorContainer = styled.div`
           onChange={this.handleInputChange}
         />
 
-        <Button type="Submit">Leave Review</Button>
+        <Button type="Submit" className="button-dark">Leave Review</Button>
 
         <ErrorContainer>{this.state.errorMessage}</ErrorContainer>
       </Form>

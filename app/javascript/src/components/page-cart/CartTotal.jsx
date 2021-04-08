@@ -11,20 +11,8 @@ const MessageContainer = styled.div`
 `
 
 const Button = styled.button`
-  color: var(--main-light);
-  background-color: var(--medium-dark);
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px var(--main-dark);
   padding: 10px 28px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px var(--main-dark);
   margin-bottom: 10px;
-
-  &:hover {
-    background-color: var(--main-dark);
-  }
 `
 
 export default class CartTotal extends Component {
@@ -70,7 +58,9 @@ export default class CartTotal extends Component {
           </tbody>
         </table>
 
-        <Button onClick={this.handleCheckout}>Checkout</Button>
+        <Button className="button-dark" onClick={this.handleCheckout}>
+          Checkout
+        </Button>
 
         <MessageContainer>
           {this.state.cartMessage}

@@ -4,20 +4,8 @@ import { AppConsumer } from '../AppContext';
 import displayPrice from '../../utils/displayPrice';
 
 const Button = styled.button`
-  color: var(--main-light);
-  background-color: var(--medium-dark);
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px var(--main-dark);
   width: 30px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px var(--main-dark);
   margin: 0 8px;
-
-  &:hover {
-    background-color: var(--main-dark);
-  }
 `
 
 export default class CartElement extends Component {
@@ -33,9 +21,19 @@ export default class CartElement extends Component {
               <td>{displayPrice(price)}</td>
 
               <td>
-                <Button onClick={() => { value.decrement(id) }}>-</Button>
+                <Button
+                  className="button-dark"
+                  onClick={() => { value.decrement(id) }}
+                >
+                  -
+                </Button>
                 {count}
-                <Button onClick={() => { value.increment(id) }}>+</Button>
+                <Button
+                  className="button-dark"
+                  onClick={() => { value.increment(id) }}
+                >
+                  +
+                </Button>
               </td>
 
               <td>{displayPrice(total)}</td>
