@@ -9,7 +9,7 @@ export default class PageProductsIndex extends Component {
       <Fragment>
         <PageHeader>Cart</PageHeader>
 
-        <div className="cart-container">
+        <div className="page-container">
           <CartList />
           <CartTotal />
         </div>

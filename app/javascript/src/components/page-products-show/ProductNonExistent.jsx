@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PageHeader from '../PageHeader';
 
 export default class ProductNonExistent extends Component {
   render() {
     return (
-      <p>Product does not exist!</p>
+      <PageHeader>Product does not exist</PageHeader>
     );
   }
 }

@@ -1,16 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { AppContext } from '../AppContext';
-import styled from 'styled-components';
 import PageHeader from '../PageHeader';
-import ProductDetails from './ProductDetails';
+import ProductCard from './ProductCard';
 import ProductNonExistent from './ProductNonExistent';
 import ReviewsList from './ReviewsList';
-
-const ContentContainer = styled.div`
-  min-width: 900px;
-  max-width: 900px;
-  margin: 0 auto;
-`
 
 export default class PageProductsShow extends Component {
   componentDidMount() {
@@ -27,10 +20,10 @@ export default class PageProductsShow extends Component {
             <Fragment>
               <PageHeader>{currentProduct.name}</PageHeader>
 
-              <ContentContainer>
-                <ProductDetails product={currentProduct} />
+              <div className="page-container">
+                <ProductCard product={currentProduct} />
                 <ReviewsList reviews={currentProduct.reviews} />
-              </ContentContainer>
+              </div>
             </Fragment>
           ) : (
             <ProductNonExistent />

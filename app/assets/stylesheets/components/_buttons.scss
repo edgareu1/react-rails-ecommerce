@@ -1,0 +1,18 @@
+button {
+  cursor: pointer;
+}
+
+.button-dark {
+  color: var(--main-light);
+  background-color: var(--medium-dark);
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px var(--main-dark);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px var(--main-dark);
+
+  &:hover {
+    background-color: var(--main-dark);
+  }
+}

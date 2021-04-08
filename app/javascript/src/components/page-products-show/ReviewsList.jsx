@@ -17,14 +17,9 @@ export default class ReviewsList extends Component {
       <Container>
         <Title>Reviews</Title>
 
-        <div>
+        <div className="reviews-list">
           {this.props.reviews.map(review => {
-            return (
-              <ReviewElement
-                key={review.id}
-                review={review}
-              />
-            );
+            return <ReviewElement key={review.id} review={review} />;
           })}
         </div>
       </Container>
