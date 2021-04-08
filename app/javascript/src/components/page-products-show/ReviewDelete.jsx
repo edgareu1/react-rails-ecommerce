@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { AppConsumer } from '../AppContext';
+import { AppContext } from '../AppContext';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  font-size: 32px;
   background: transparent;
+  font-size: 32px;
   border: none;
   margin-right: 15px;
 `
@@ -21,17 +21,17 @@ const DeleteIcon = styled.span`
 `
 
 export default class ReviewDelete extends Component {
+  handleDelete = () => {
+    this.context.deleteReview(this.props.reviewId);
+  }
+
   render() {
     return (
-      <AppConsumer>
-        {value => {
-          return (
-            <Button onClick={() => value.deleteReview(this.props.reviewId)}>
-              <DeleteIcon />
-            </Button>
-          );
-        }}
-      </AppConsumer>
+      <Button onClick={this.handleDelete}>
+        <DeleteIcon />
+      </Button>
     );
   }
 }
+
+ReviewDelete.contextType = AppContext;

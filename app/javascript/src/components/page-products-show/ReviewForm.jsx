@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../AppContext';
+import ReviewInputStars from './ReviewInputStars';
 
 const inputDefaults = `
   background: var(--minor-dark);
@@ -56,21 +57,16 @@ const ErrorContainer = styled.div`
 `
 
  export default class ReviewForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      author: '',
-      content: '',
-      rating: '',
-      errorMessage: ''
-    }
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  state = {
+    author: '',
+    content: '',
+    rating: '',
+    errorMessage: ''
   }
 
-  handleInputChange(event) {
+  // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
+  handleInputChange = (event) => {
     const newProperty = event.target.name;
     const newValue = event.target.value;
 
@@ -79,7 +75,9 @@ const ErrorContainer = styled.div`
     });
   }
 
-  async handleSubmit(event) {
+  // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
@@ -96,32 +94,20 @@ const ErrorContainer = styled.div`
       }
     }
 
-    this.setState(() => ({...data, errorMessage}));
+    this.setState(() => {
+      return { ...data, errorMessage };
+    });
   }
 
+  // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
   render() {
-    const ratingOptions = ['5', '4', '3', '2', '1'].map(rating => {
-      return (
-        <Fragment key={rating}>
-          <input
-            type="radio"
-            value={rating}
-            name="rating"
-            id={`rating-${rating}`}
-            onChange={this.handleInputChange}
-            checked={this.state.rating === rating}
-          />
-
-          <label htmlFor={`rating-${rating}`} />
-        </Fragment>
-      )
-    });
-
     return (
       <Form onSubmit={this.handleSubmit}>
-        <div className="stars">
-          {ratingOptions}
-        </div>
+        <ReviewInputStars
+          onChange={this.handleInputChange}
+          rating={this.state.rating}
+        />
 
         <Input
           type="text"
