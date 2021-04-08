@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { AppConsumer } from '../AppContext';
+import { AppContext } from '../AppContext';
 import displayPrice from '../../utils/displayPrice';
 
 const Button = styled.button`
@@ -9,38 +9,38 @@ const Button = styled.button`
 `
 
 export default class CartElement extends Component {
+  handleDecrement = () => {
+    this.context.decrement(this.props.element.id);
+  }
+
+  handleIncrement = () => {
+    this.context.increment(this.props.element.id);
+  }
+
   render() {
-    const { id, name, price, count, total } = this.props.element;
+    const { name, price, count, total } = this.props.element;
 
     return (
-      <AppConsumer>
-        {value => {
-          return (
-            <tr>
-              <td>{name}</td>
-              <td>{displayPrice(price)}</td>
+      <tr>
+        <td>{name}</td>
+        <td>{displayPrice(price)}</td>
 
-              <td>
-                <Button
-                  className="button-dark"
-                  onClick={() => { value.decrement(id) }}
-                >
-                  -
-                </Button>
-                {count}
-                <Button
-                  className="button-dark"
-                  onClick={() => { value.increment(id) }}
-                >
-                  +
-                </Button>
-              </td>
+        <td>
+          <Button className="button-dark" onClick={this.handleDecrement}>
+            -
+          </Button>
 
-              <td>{displayPrice(total)}</td>
-            </tr>
-          );
-        }}
-      </AppConsumer>
+          {count}
+
+          <Button className="button-dark" onClick={this.handleIncrement}>
+            +
+          </Button>
+        </td>
+
+        <td>{displayPrice(total)}</td>
+      </tr>
     );
   }
 }
+
+CartElement.contextType = AppContext;

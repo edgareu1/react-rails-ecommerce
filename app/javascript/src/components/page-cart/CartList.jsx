@@ -20,28 +20,26 @@ export default class CartList extends Component {
           <AppConsumer>
             {value => {
               return value.cart.map(el => {
-                return (
-                  <CartElement key={el.id} element={el} />
-                );
+                return <CartElement key={el.id} element={el} />;
               });
             }}
           </AppConsumer>
         </tbody>
 
-          <tfoot>
-            <AppConsumer>
-              {value => {
-                return (
-                  <tr>
-                    <td>Subtotal</td>
-                    <td>---</td>
-                    <td>{value.cartNum}</td>
-                    <td>{displayPrice(value.cartSubtotal)}</td>
-                  </tr>
-                );
-              }}
-            </AppConsumer>
-          </tfoot>
+        <tfoot>
+          <AppConsumer>
+            {value => {
+              return (
+                <tr>
+                  <td>Subtotal</td>
+                  <td>---</td>
+                  <td>{value.cartNum}</td>
+                  <td>{displayPrice(value.cartSubtotal)}</td>
+                </tr>
+              );
+            }}
+          </AppConsumer>
+        </tfoot>
       </table>
     );
   }

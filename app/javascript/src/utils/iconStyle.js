@@ -1,10 +1,10 @@
-export default function iconStyle(starSymbol) {
-  const star = `
+export default function iconStyle(iconSymbol) {
+  const icon = `
     &:after {
       font-family: FontAwesome;
-      content: "\f${starSymbol}";
+      content: "\f${iconSymbol}";
     }
   `
 
-  return star;
+  return icon;
 }

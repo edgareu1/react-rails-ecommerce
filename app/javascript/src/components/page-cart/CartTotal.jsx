@@ -16,27 +16,23 @@ const Button = styled.button`
 `
 
 export default class CartTotal extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      cartMessage: ''
-    };
+  state = {
+    cartMessage: ''
   }
 
   handleCheckout = () => {
+    let cartMessage;
+
     if (this.context.cart.length > 0) {
       this.context.checkout();
-
-      this.setState({
-        cartMessage: 'Purchase was sucessful!'
-      });
-
+      cartMessage = 'Purchase was sucessful!';
     } else {
-      this.setState({
-        cartMessage: 'Cart is empty!'
-      });
+      cartMessage = 'Cart is empty!';
     }
+
+    this.setState(() => {
+      return { cartMessage };
+    });
   }
 
   render() {
