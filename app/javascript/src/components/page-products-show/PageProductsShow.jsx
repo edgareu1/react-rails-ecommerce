@@ -6,6 +6,8 @@ import ProductNonExistent from './ProductNonExistent';
 import ReviewsList from './ReviewsList';
 
 export default class PageProductsShow extends Component {
+  static contextType = AppContext;
+
   componentDidMount() {
     const productId = Number(this.props.match.params.id);
     this.context.setCurrentProduct(productId);
@@ -33,5 +35,3 @@ export default class PageProductsShow extends Component {
     );
   }
 }
-
-PageProductsShow.contextType = AppContext;

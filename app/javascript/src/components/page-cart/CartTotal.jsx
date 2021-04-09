@@ -16,6 +16,8 @@ const Button = styled.button`
 `
 
 export default class CartTotal extends Component {
+  static contextType = AppContext;
+
   state = {
     cartMessage: ''
   }
@@ -65,5 +67,3 @@ export default class CartTotal extends Component {
     );
   }
 }
-
-CartTotal.contextType = AppContext;

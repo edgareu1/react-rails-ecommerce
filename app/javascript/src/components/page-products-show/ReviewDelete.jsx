@@ -19,6 +19,8 @@ const DeleteIcon = styled.span`
 `
 
 export default class ReviewDelete extends Component {
+  static contextType = AppContext;
+
   handleDelete = () => {
     this.context.deleteReview(this.props.reviewId);
   }
@@ -31,5 +33,3 @@ export default class ReviewDelete extends Component {
     );
   }
 }
-
-ReviewDelete.contextType = AppContext;

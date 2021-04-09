@@ -44,7 +44,9 @@ const ErrorContainer = styled.div`
   font-weight: bold;
 `
 
- export default class ReviewForm extends Component {
+export default class ReviewForm extends Component {
+  static contextType = AppContext;
+
   state = {
     author: '',
     content: '',
@@ -119,5 +121,3 @@ const ErrorContainer = styled.div`
     );
   }
 }
-
-ReviewForm.contextType = AppContext;
