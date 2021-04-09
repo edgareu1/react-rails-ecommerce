@@ -4,13 +4,8 @@ import { AppConsumer } from './AppContext';
 import styled from 'styled-components';
 import iconStyle from '../utils/iconStyle';
 
-const IconLogo = styled.span`
-  ${iconStyle('02b')}
-`
-
-const IconCart = styled.span`
-  ${iconStyle('07a')}
-`
+const IconLogo = styled.span`${iconStyle('02b')}`;
+const IconCart = styled.span`${iconStyle('07a')}`;
 
 export default class Navbar extends Component {
   render() {

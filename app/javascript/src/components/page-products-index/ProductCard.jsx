@@ -72,6 +72,8 @@ const Cart = styled.span`
 `
 
 export default class ProductCard extends Component {
+  static contextType = AppContext;
+
   handleClick = () => {
     this.context.addToCart(this.props.product.id);
   }
@@ -100,5 +102,3 @@ export default class ProductCard extends Component {
     );
   }
 }
-
-ProductCard.contextType = AppContext;

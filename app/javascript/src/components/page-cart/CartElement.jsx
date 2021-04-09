@@ -9,6 +9,8 @@ const Button = styled.button`
 `
 
 export default class CartElement extends Component {
+  static contextType = AppContext;
+
   handleDecrement = () => {
     this.context.decrement(this.props.element.id);
   }
@@ -42,5 +44,3 @@ export default class CartElement extends Component {
     );
   }
 }
-
-CartElement.contextType = AppContext;
