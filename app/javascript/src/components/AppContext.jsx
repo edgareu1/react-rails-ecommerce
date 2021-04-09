@@ -81,23 +81,39 @@ class AppProvider extends Component {
 
   // ------------------------------/------------------------------
   // ------------------------------/------------------------------
-  addToCart = (id) => {
-    const product = this.state.products.find(product => product.id === id);
+  mapProductsState = (callback, id) => {
+    this.setState((prevState) => {
+      const products = prevState.products.map(product => callback(product, id));
+      return { products };
 
-    product.inCart = true;
-    product.count = 1;
-    product.total = product.price;
-
-    this.setState(() => {
-      return { cart: [...this.state.cart, product] };
     }, this.setTotals);
   }
 
   // ------------------------------/------------------------------
   // ------------------------------/------------------------------
+  addToCart = (id) => {
+    const callback = (product, productId) => {
+      if (product.id === productId) {
+        const newProduct = Object.assign({}, product, {
+          inCart: true,
+          count: 1,
+          total: product.price
+        });
+        return newProduct;
+
+      } else {
+        return product;
+      }
+    }
+
+    this.mapProductsState(callback, id);
+  }
+
+  // ------------------------------/------------------------------
+  // ------------------------------/------------------------------
   decrement = (id) => {
-    const products = this.state.products.map(product => {
-      if (product.id === id) {
+    const callback = (product, productId) => {
+      if (product.id === productId) {
         const newProductCount = --product.count;
         const newProduct = Object.assign({}, product, {
           count: newProductCount,
@@ -109,18 +125,16 @@ class AppProvider extends Component {
       } else {
         return product;
       }
-    });
+    }
 
-    this.setState(() => {
-      return { products };
-    }, this.setTotals);
+    this.mapProductsState(callback, id);
   }
 
   // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   increment = (id) => {
-    const products = this.state.products.map(product => {
-      if (product.id === id) {
+    const callback = (product, productId) => {
+      if (product.id === productId) {
         const newProductCount = ++product.count;
         const newProduct = Object.assign({}, product, {
           count: newProductCount,
@@ -131,50 +145,46 @@ class AppProvider extends Component {
       } else {
         return product;
       }
-    });
+    }
 
-    this.setState(() => {
-      return { products };
-    }, this.setTotals);
+    this.mapProductsState(callback, id);
   }
 
   // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   checkout = () => {
-    const products = this.state.products.map(product => {
+    const callback = (product) => {
       const newProduct = Object.assign({}, product, {
         count: 0,
         total: 0,
         inCart: false
       });
       return newProduct;
-    });
+    }
 
-    this.setState(() => {
-      return { products };
-    }, this.setTotals);
+    this.mapProductsState(callback);
   }
 
   // ------------------------------/------------------------------
   // ------------------------------/------------------------------
   setTotals = () => {
-    const cart = this.state.products.filter(product => product.inCart);
-    let cartNum = 0;
-    let cartSubtotal = 0;
-    let deliveryCost = 0;
+    this.setState((prevState) => {
+      const cart = prevState.products.filter(product => product.inCart);
+      let cartNum = 0;
+      let cartSubtotal = 0;
+      let deliveryCost = 0;
 
-    cart.forEach(product => {
-      cartNum += product.count;
-      cartSubtotal += product.total;
-    });
+      cart.forEach(product => {
+        cartNum += product.count;
+        cartSubtotal += product.total;
+      });
 
-    if (cart.length > 0) {
-      deliveryCost = Math.max(500, cartSubtotal * 0.1);
-    }
+      if (cart.length > 0) {
+        deliveryCost = Math.max(500, cartSubtotal * 0.1);
+      }
 
-    const cartTotal = cartSubtotal + deliveryCost;
+      const cartTotal = cartSubtotal + deliveryCost;
 
-    this.setState(() => {
       return {
         cart,
         cartNum,
