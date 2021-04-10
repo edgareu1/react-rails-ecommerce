@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppContext } from '../../AppContext';
 import styled from 'styled-components';
+import capitalize from '../../../utils/capitalize';
 import ReviewInputStars from './ReviewInputStars';
 
 const inputDefaults = `
@@ -79,7 +80,7 @@ export default class ReviewForm extends Component {
     // Client side form validation
     try {
       Object.keys(data).forEach(key => {
-        if (!data[key]) throw `${key} can't be blank`;
+        if (!data[key]) throw `${capitalize(key)} can't be blank`;
       });
 
     } catch(err) {
