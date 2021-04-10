@@ -76,6 +76,20 @@ export default class ReviewForm extends Component {
       rating: this.state.rating
     };
 
+    // Client side form validation
+    try {
+      Object.keys(data).forEach(key => {
+        if (!data[key]) throw `${key} can't be blank`;
+      });
+
+    } catch(err) {
+      this.setState(() => {
+        return { errorMessage: err };
+      });
+      return;
+    }
+
+    // Server side form validation and submission
     const {wasCreated, errorMessage} = await this.context.createReview(data);
 
     if (wasCreated) {
