@@ -176,7 +176,7 @@ class AppProvider extends Component {
       });
 
       if (cart.length > 0) {
-        deliveryCost = Math.max(500, cartSubtotal * 0.1);
+        deliveryCost = Math.min(500, cartSubtotal * 0.1);
       }
 
       const cartTotal = cartSubtotal + deliveryCost;
