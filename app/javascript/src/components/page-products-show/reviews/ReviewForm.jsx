@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { AppContext } from '../../AppContext';
 import styled from 'styled-components';
-import { AppContext } from '../AppContext';
 import ReviewInputStars from './ReviewInputStars';
 
 const inputDefaults = `

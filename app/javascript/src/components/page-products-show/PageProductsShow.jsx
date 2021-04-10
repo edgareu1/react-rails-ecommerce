@@ -3,7 +3,7 @@ import { AppContext } from '../AppContext';
 import PageHeader from '../PageHeader';
 import ProductCard from './ProductCard';
 import ProductNonExistent from './ProductNonExistent';
-import ReviewsList from './ReviewsList';
+import ReviewsList from './reviews/ReviewsList';
 
 export default class PageProductsShow extends Component {
   static contextType = AppContext;

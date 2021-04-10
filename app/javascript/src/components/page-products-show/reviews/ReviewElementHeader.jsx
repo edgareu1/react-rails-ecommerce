@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import iconStyle from '../../utils/iconStyle';
+import iconStyle from '../../../utils/iconStyle';
 import ReviewDelete from './ReviewDelete';
 
 const Container = styled.div`

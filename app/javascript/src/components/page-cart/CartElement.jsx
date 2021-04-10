@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { AppContext } from '../AppContext';
+import styled from 'styled-components';
 import displayPrice from '../../utils/displayPrice';
 
 const Button = styled.button`

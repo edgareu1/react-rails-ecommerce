@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import displayPrice from '../../utils/displayPrice';
 import iconStyle from '../../utils/iconStyle';
-import ReviewForm from './ReviewForm';
+import ReviewForm from './reviews/ReviewForm';
 
 const Container = styled.div`
   background: var(--main-light);
