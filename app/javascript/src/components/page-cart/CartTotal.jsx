@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import styled from 'styled-components';
 import { AppContext } from '../AppContext';
+import styled from 'styled-components';
 import displayPrice from '../../utils/displayPrice';
 
 const MessageContainer = styled.div`
@@ -32,9 +32,7 @@ export default class CartTotal extends Component {
       cartMessage = 'Cart is empty!';
     }
 
-    this.setState(() => {
-      return { cartMessage };
-    });
+    this.setState({ cartMessage });
   }
 
   render() {

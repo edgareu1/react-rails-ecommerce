@@ -39,9 +39,7 @@ class AppProvider extends Component {
         return [];
       });
 
-    this.setState(() => {
-      return { products };
-    });
+    this.setState({ products });
   }
 
   // ------------------------------/------------------------------
@@ -74,9 +72,7 @@ class AppProvider extends Component {
       currentProduct.reviews = [newReview, ...reviewsList.slice(1)];
     }
 
-    this.setState(() => {
-      return { currentProduct };
-    });
+    this.setState({ currentProduct });
   }
 
   // ------------------------------/------------------------------
@@ -180,7 +176,7 @@ class AppProvider extends Component {
       });
 
       if (cart.length > 0) {
-        deliveryCost = Math.max(500, cartSubtotal * 0.1);
+        deliveryCost = Math.min(500, cartSubtotal * 0.1);
       }
 
       const cartTotal = cartSubtotal + deliveryCost;

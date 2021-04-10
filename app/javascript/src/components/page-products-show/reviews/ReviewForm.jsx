@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { AppContext } from '../../AppContext';
 import styled from 'styled-components';
-import { AppContext } from '../AppContext';
+import capitalize from '../../../utils/capitalize';
 import ReviewInputStars from './ReviewInputStars';
 
 const inputDefaults = `
@@ -60,9 +61,7 @@ export default class ReviewForm extends Component {
     const newProperty = event.target.name;
     const newValue = event.target.value;
 
-    this.setState(() => {
-      return { [newProperty]: newValue };
-    });
+    this.setState({ [newProperty]: newValue });
   }
 
   // ------------------------------/------------------------------
@@ -76,6 +75,18 @@ export default class ReviewForm extends Component {
       rating: this.state.rating
     };
 
+    // Client side form validation
+    try {
+      Object.keys(data).forEach(key => {
+        if (!data[key]) throw `${capitalize(key)} can't be blank`;
+      });
+
+    } catch(errorMessage) {
+      this.setState({ errorMessage });
+      return;
+    }
+
+    // Server side form validation and submission
     const {wasCreated, errorMessage} = await this.context.createReview(data);
 
     if (wasCreated) {
@@ -84,9 +95,7 @@ export default class ReviewForm extends Component {
       }
     }
 
-    this.setState(() => {
-      return { ...data, errorMessage };
-    });
+    this.setState({ ...data, errorMessage });
   }
 
   // ------------------------------/------------------------------
