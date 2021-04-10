@@ -32,9 +32,7 @@ export default class CartTotal extends Component {
       cartMessage = 'Cart is empty!';
     }
 
-    this.setState(() => {
-      return { cartMessage };
-    });
+    this.setState({ cartMessage });
   }
 
   render() {

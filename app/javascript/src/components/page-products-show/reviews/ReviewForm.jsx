@@ -61,9 +61,7 @@ export default class ReviewForm extends Component {
     const newProperty = event.target.name;
     const newValue = event.target.value;
 
-    this.setState(() => {
-      return { [newProperty]: newValue };
-    });
+    this.setState({ [newProperty]: newValue });
   }
 
   // ------------------------------/------------------------------
@@ -83,10 +81,8 @@ export default class ReviewForm extends Component {
         if (!data[key]) throw `${capitalize(key)} can't be blank`;
       });
 
-    } catch(err) {
-      this.setState(() => {
-        return { errorMessage: err };
-      });
+    } catch(errorMessage) {
+      this.setState({ errorMessage });
       return;
     }
 
@@ -99,9 +95,7 @@ export default class ReviewForm extends Component {
       }
     }
 
-    this.setState(() => {
-      return { ...data, errorMessage };
-    });
+    this.setState({ ...data, errorMessage });
   }
 
   // ------------------------------/------------------------------

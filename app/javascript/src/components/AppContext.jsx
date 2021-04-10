@@ -39,9 +39,7 @@ class AppProvider extends Component {
         return [];
       });
 
-    this.setState(() => {
-      return { products };
-    });
+    this.setState({ products });
   }
 
   // ------------------------------/------------------------------
@@ -74,9 +72,7 @@ class AppProvider extends Component {
       currentProduct.reviews = [newReview, ...reviewsList.slice(1)];
     }
 
-    this.setState(() => {
-      return { currentProduct };
-    });
+    this.setState({ currentProduct });
   }
 
   // ------------------------------/------------------------------
